@@ -13,6 +13,6 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "SunLight"
+rootProject.name = "My Application"
 include(":app")
  
