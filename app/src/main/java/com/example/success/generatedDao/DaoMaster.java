@@ -28,6 +28,7 @@ public class DaoMaster extends AbstractDaoMaster {
         KnowledgeLabelDao.createTable(db, ifNotExists);
         KnowledgeTaskDao.createTable(db, ifNotExists);
         LabelDao.createTable(db, ifNotExists);
+        SportTipDao.createTable(db, ifNotExists);
         UserDao.createTable(db, ifNotExists);
         WordDao.createTable(db, ifNotExists);
         WordHistoryDao.createTable(db, ifNotExists);
@@ -44,6 +45,7 @@ public class DaoMaster extends AbstractDaoMaster {
         KnowledgeLabelDao.dropTable(db, ifExists);
         KnowledgeTaskDao.dropTable(db, ifExists);
         LabelDao.dropTable(db, ifExists);
+        SportTipDao.dropTable(db, ifExists);
         UserDao.dropTable(db, ifExists);
         WordDao.dropTable(db, ifExists);
         WordHistoryDao.dropTable(db, ifExists);
@@ -74,6 +76,7 @@ public class DaoMaster extends AbstractDaoMaster {
         registerDaoClass(KnowledgeLabelDao.class);
         registerDaoClass(KnowledgeTaskDao.class);
         registerDaoClass(LabelDao.class);
+        registerDaoClass(SportTipDao.class);
         registerDaoClass(UserDao.class);
         registerDaoClass(WordDao.class);
         registerDaoClass(WordHistoryDao.class);

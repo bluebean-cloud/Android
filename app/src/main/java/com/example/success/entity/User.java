@@ -14,6 +14,7 @@ import com.example.success.generatedDao.DaoSession;
 import com.example.success.generatedDao.UserDao;
 import com.example.success.generatedDao.KnowledgeDao;
 import com.example.success.generatedDao.WordDao;
+import com.example.success.generatedDao.SportTipDao;
 
 @Entity
 public class User {
@@ -49,6 +50,9 @@ public class User {
     // 一对多关系：一个用户有许多知识点
     @ToMany(referencedJoinProperty = "userId") // Knowledge 中的 userId
     private List<Knowledge> knowledgeList;
+
+    @ToMany(referencedJoinProperty = "userId")
+    private List<SportTip> sportTipList;
 
     /**
      * 多对多关系
@@ -274,6 +278,34 @@ public class User {
 
     public void setKnowledgeTaskNum(int knowledgeTaskNum) {
         this.knowledgeTaskNum = knowledgeTaskNum;
+    }
+
+    /**
+     * To-many relationship, resolved on first access (and after reset).
+     * Changes to to-many relations are not persisted, make changes to the target entity.
+     */
+    @Generated(hash = 202760275)
+    public List<SportTip> getSportTipList() {
+        if (sportTipList == null) {
+            final DaoSession daoSession = this.daoSession;
+            if (daoSession == null) {
+                throw new DaoException("Entity is detached from DAO context");
+            }
+            SportTipDao targetDao = daoSession.getSportTipDao();
+            List<SportTip> sportTipListNew = targetDao._queryUser_SportTipList(id);
+            synchronized (this) {
+                if (sportTipList == null) {
+                    sportTipList = sportTipListNew;
+                }
+            }
+        }
+        return sportTipList;
+    }
+
+    /** Resets a to-many relationship, making the next get call to query for a fresh result. */
+    @Generated(hash = 1862245525)
+    public synchronized void resetSportTipList() {
+        sportTipList = null;
     }
 
 }

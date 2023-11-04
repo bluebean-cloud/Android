@@ -12,10 +12,11 @@
         tools:layout="@layout/fragment_home" />
 
     <fragment
-        android:id="@+id/navigation_dashboard"
-        android:name="com.example.success.ui.dashboard.DashboardFragment"
-        android:label="@string/title_dashboard"
-        tools:layout="@layout/fragment_dashboard" />
+        android:id="@+id/navigation_square"
+        android:name="com.example.success.ui.square.SquareFragment"
+        android:label="@string/title_square"
+        tools:layout="@layout/fragment_square" />
+<!--    修改为广场-->
 
     <fragment
         android:id="@+id/navigation_notifications"
