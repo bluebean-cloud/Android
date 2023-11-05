@@ -1,25 +1,12 @@
 package com.example.success.ui.home;
 
 import static android.app.Activity.RESULT_OK;
-import static android.content.Context.ALARM_SERVICE;
 
-import android.app.AlarmManager;
-import android.app.AlertDialog;
-import android.app.PendingIntent;
-import android.app.TimePickerDialog;
-import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.TextView;
-import android.widget.TimePicker;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -29,19 +16,11 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.success.AddSportRecordActivity;
-import com.example.success.AlarmReceiver;
-import com.example.success.ChineseMemory;
-import com.example.success.ChineseTest;
-import com.example.success.EnglishMemory;
-import com.example.success.EnglishTest;
-import com.example.success.MainActivity;
 import com.example.success.MainViewModel;
 import com.example.success.R;
-import com.example.success.ShowTask;
 import com.example.success.SportRecord;
 import com.example.success.SportRecordAdapter;
 import com.example.success.databinding.FragmentHomeBinding;
-import com.example.success.view.CurveView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.text.DateFormat;
@@ -60,6 +39,8 @@ public class HomeFragment extends Fragment {
     private SportRecordAdapter adapter;
     private static final int ADD_RECORD_REQUEST_CODE = 1;
 
+    List<SportRecord> sportRecords = new ArrayList<>();
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -72,12 +53,8 @@ public class HomeFragment extends Fragment {
         View root = binding.getRoot();
 
         // 初始化RecyclerView
-        recyclerView = root.findViewById(R.id.recyclerView);
+        recyclerView = root.findViewById(R.id.recyclerViewForSportRecord);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-
-        // 模拟数据
-        List<SportRecord> sportRecords = new ArrayList<>();
-        // 添加运动记录到sportRecords列表中
 
         // 创建适配器
         adapter = new SportRecordAdapter(sportRecords);
@@ -109,8 +86,19 @@ public class HomeFragment extends Fragment {
             String duration = data.getStringExtra("duration"); // 从添加页面传回运动时间
             String sportLocation = data.getStringExtra("sportLocation"); // 从添加页面传回运动地点
             String createDate = getCurrentTime(); // 获取当前的时间
+            int image_num = data.getIntExtra("image_num", 0);
+            byte[] byteArray1;
+            byte[] byteArray2;
+            SportRecord newSportRecord = null;
             // 创建新的SportRecord对象
-            SportRecord newSportRecord = new SportRecord(sportName, duration, sportLocation, createDate);
+            if (image_num == 1) {
+                byteArray1 = data.getByteArrayExtra("image1");
+                newSportRecord = new SportRecord(sportName, duration, sportLocation, createDate, byteArray1);
+            } else if (image_num == 2) {
+                byteArray1 = data.getByteArrayExtra("image1");
+                byteArray2 = data.getByteArrayExtra("image2");
+                newSportRecord = new SportRecord(sportName, duration, sportLocation, createDate, byteArray1, byteArray2);
+            }
             // 将新的运动记录添加到适配器中
             adapter.addSportRecord(newSportRecord);
         }
@@ -133,5 +121,19 @@ public class HomeFragment extends Fragment {
         df.setTimeZone(TZ);
         // 获取时间表达式
         return df.format(cal.getTime());
+    }
+
+    //重新显示原有的界面
+    @Override
+    public void onResume() {
+        super.onResume();
+        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+
+        // 创建适配器
+        adapter = new SportRecordAdapter(sportRecords);
+        adapter.setRecyclerView(recyclerView); // 设置 RecyclerView
+
+        // 将适配器绑定到RecyclerView
+        recyclerView.setAdapter(adapter);
     }
 }

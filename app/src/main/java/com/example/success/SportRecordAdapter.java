@@ -1,8 +1,12 @@
 package com.example.success;
 
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -32,6 +36,35 @@ public class SportRecordAdapter extends RecyclerView.Adapter<SportRecordAdapter.
         holder.durationTextView.setText(String.valueOf(sportRecord.getDuration()));
         holder.sportLocationTextView.setText(String.valueOf(sportRecord.getSportLocation()));
         holder.createDateTextView.setText(String.valueOf(sportRecord.getCreateDate()));
+        byte[] byteArray = sportRecord.getImageBit1();
+        Bitmap bitmap = BitmapFactory.decodeByteArray(byteArray, 0, byteArray.length);
+        holder.ImageViewSportItem.setImageBitmap(bitmap);
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(v.getContext(), DetailOfSport.class);
+                //传递用户头像
+                //TODO:设置用户图像
+                //传递用户名
+                intent.putExtra("textViewUserIdInDetail", "Arong");//TODO:设置userId
+                //传递创建时间
+                intent.putExtra("textViewCreateDateInDetail", holder.createDateTextView.getText().toString());
+                //传递运动项目
+                intent.putExtra("textViewSportNameInDetail", sportRecord.getSportName());
+                //传递运动时间
+                intent.putExtra("textViewDurationInDetail", String.valueOf(sportRecord.getDuration()));
+                //传递运动地点
+                intent.putExtra("textViewSportLocationInDetail", String.valueOf(sportRecord.getSportLocation()));
+                //传递图片1
+                intent.putExtra("image1", sportRecord.getImageBit1());
+                //传递图片2
+                if (sportRecord.getImageBit2() != null) {
+                    intent.putExtra("image2", sportRecord.getImageBit2());
+                }
+                //启动活动
+                v.getContext().startActivity(intent);
+            }
+        });
     }
 
     @Override
@@ -44,6 +77,7 @@ public class SportRecordAdapter extends RecyclerView.Adapter<SportRecordAdapter.
         public TextView durationTextView;
         public TextView sportLocationTextView;
         public TextView createDateTextView;
+        public ImageView ImageViewSportItem;
 
         public ViewHolder(View view) {
             super(view);
@@ -51,6 +85,7 @@ public class SportRecordAdapter extends RecyclerView.Adapter<SportRecordAdapter.
             durationTextView = view.findViewById(R.id.textViewDuration);
             sportLocationTextView = view.findViewById(R.id.textViewSportLocation);
             createDateTextView = view.findViewById(R.id.textViewCreateDate);
+            ImageViewSportItem = view.findViewById(R.id.ImageViewSportItem);
         }
     }
 
