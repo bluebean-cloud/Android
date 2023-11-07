@@ -20,6 +20,9 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
+            android:name=".CreateRoom"
+            android:exported="false" />
+        <activity
             android:name=".ChangePass"
             android:exported="true"
             android:label="@string/title_activity_change_pass"

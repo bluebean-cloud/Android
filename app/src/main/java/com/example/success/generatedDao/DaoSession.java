@@ -15,6 +15,8 @@ import com.example.success.entity.KnowledgeHistory;
 import com.example.success.entity.KnowledgeLabel;
 import com.example.success.entity.KnowledgeTask;
 import com.example.success.entity.Label;
+import com.example.success.entity.Room;
+import com.example.success.entity.RoomList;
 import com.example.success.entity.User;
 import com.example.success.entity.Word;
 import com.example.success.entity.WordHistory;
@@ -28,6 +30,8 @@ import com.example.success.generatedDao.KnowledgeHistoryDao;
 import com.example.success.generatedDao.KnowledgeLabelDao;
 import com.example.success.generatedDao.KnowledgeTaskDao;
 import com.example.success.generatedDao.LabelDao;
+import com.example.success.generatedDao.RoomDao;
+import com.example.success.generatedDao.RoomListDao;
 import com.example.success.generatedDao.UserDao;
 import com.example.success.generatedDao.WordDao;
 import com.example.success.generatedDao.WordHistoryDao;
@@ -50,6 +54,8 @@ public class DaoSession extends AbstractDaoSession {
     private final DaoConfig knowledgeLabelDaoConfig;
     private final DaoConfig knowledgeTaskDaoConfig;
     private final DaoConfig labelDaoConfig;
+    private final DaoConfig roomDaoConfig;
+    private final DaoConfig roomListDaoConfig;
     private final DaoConfig userDaoConfig;
     private final DaoConfig wordDaoConfig;
     private final DaoConfig wordHistoryDaoConfig;
@@ -63,6 +69,8 @@ public class DaoSession extends AbstractDaoSession {
     private final KnowledgeLabelDao knowledgeLabelDao;
     private final KnowledgeTaskDao knowledgeTaskDao;
     private final LabelDao labelDao;
+    private final RoomDao roomDao;
+    private final RoomListDao roomListDao;
     private final UserDao userDao;
     private final WordDao wordDao;
     private final WordHistoryDao wordHistoryDao;
@@ -94,6 +102,12 @@ public class DaoSession extends AbstractDaoSession {
         labelDaoConfig = daoConfigMap.get(LabelDao.class).clone();
         labelDaoConfig.initIdentityScope(type);
 
+        roomDaoConfig = daoConfigMap.get(RoomDao.class).clone();
+        roomDaoConfig.initIdentityScope(type);
+
+        roomListDaoConfig = daoConfigMap.get(RoomListDao.class).clone();
+        roomListDaoConfig.initIdentityScope(type);
+
         userDaoConfig = daoConfigMap.get(UserDao.class).clone();
         userDaoConfig.initIdentityScope(type);
 
@@ -116,6 +130,8 @@ public class DaoSession extends AbstractDaoSession {
         knowledgeLabelDao = new KnowledgeLabelDao(knowledgeLabelDaoConfig, this);
         knowledgeTaskDao = new KnowledgeTaskDao(knowledgeTaskDaoConfig, this);
         labelDao = new LabelDao(labelDaoConfig, this);
+        roomDao = new RoomDao(roomDaoConfig, this);
+        roomListDao = new RoomListDao(roomListDaoConfig, this);
         userDao = new UserDao(userDaoConfig, this);
         wordDao = new WordDao(wordDaoConfig, this);
         wordHistoryDao = new WordHistoryDao(wordHistoryDaoConfig, this);
@@ -129,6 +145,8 @@ public class DaoSession extends AbstractDaoSession {
         registerDao(KnowledgeLabel.class, knowledgeLabelDao);
         registerDao(KnowledgeTask.class, knowledgeTaskDao);
         registerDao(Label.class, labelDao);
+        registerDao(Room.class, roomDao);
+        registerDao(RoomList.class, roomListDao);
         registerDao(User.class, userDao);
         registerDao(Word.class, wordDao);
         registerDao(WordHistory.class, wordHistoryDao);
@@ -144,6 +162,8 @@ public class DaoSession extends AbstractDaoSession {
         knowledgeLabelDaoConfig.clearIdentityScope();
         knowledgeTaskDaoConfig.clearIdentityScope();
         labelDaoConfig.clearIdentityScope();
+        roomDaoConfig.clearIdentityScope();
+        roomListDaoConfig.clearIdentityScope();
         userDaoConfig.clearIdentityScope();
         wordDaoConfig.clearIdentityScope();
         wordHistoryDaoConfig.clearIdentityScope();
@@ -177,6 +197,14 @@ public class DaoSession extends AbstractDaoSession {
 
     public LabelDao getLabelDao() {
         return labelDao;
+    }
+
+    public RoomDao getRoomDao() {
+        return roomDao;
+    }
+
+    public RoomListDao getRoomListDao() {
+        return roomListDao;
     }
 
     public UserDao getUserDao() {

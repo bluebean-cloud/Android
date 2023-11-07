@@ -41,6 +41,7 @@ public class UserDao extends AbstractDao<User, Long> {
 
     private DaoSession daoSession;
 
+    private Query<User> room_JoinUsersQuery;
     private Query<User> user_FriendsQuery;
 
     public UserDao(DaoConfig config) {
@@ -193,6 +194,20 @@ public class UserDao extends AbstractDao<User, Long> {
         return true;
     }
     
+    /** Internal query to resolve the "joinUsers" to-many relationship of Room. */
+    public List<User> _queryRoom_JoinUsers(Long id) {
+        synchronized (this) {
+            if (room_JoinUsersQuery == null) {
+                QueryBuilder<User> queryBuilder = queryBuilder();
+                queryBuilder.where(Properties.Id.eq(null));
+                room_JoinUsersQuery = queryBuilder.build();
+            }
+        }
+        Query<User> query = room_JoinUsersQuery.forCurrentThread();
+        query.setParameter(0, id);
+        return query.list();
+    }
+
     /** Internal query to resolve the "friends" to-many relationship of User. */
     public List<User> _queryUser_Friends(Long user1Id) {
         synchronized (this) {

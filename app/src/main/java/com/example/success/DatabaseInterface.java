@@ -12,6 +12,8 @@ import com.example.success.entity.KnowledgeHistory;
 import com.example.success.entity.KnowledgeLabel;
 import com.example.success.entity.KnowledgeTask;
 import com.example.success.entity.Label;
+import com.example.success.entity.Room;
+import com.example.success.entity.RoomList;
 import com.example.success.entity.User;
 import com.example.success.entity.Word;
 import com.example.success.entity.WordHistory;
@@ -31,6 +33,8 @@ import com.example.success.generatedDao.WordDao;
 import com.example.success.generatedDao.WordHistoryDao;
 import com.example.success.generatedDao.WordLabelDao;
 import com.example.success.generatedDao.WordTaskDao;
+import com.example.success.generatedDao.RoomDao;
+import com.example.success.generatedDao.RoomListDao;
 
 import org.greenrobot.greendao.query.QueryBuilder;
 
@@ -1887,6 +1891,27 @@ public class DatabaseInterface {
             insertKnowledgeBlank(knowledge, "内容");
         }
     }
+
+
+    /*--------------------房间数据操作----------------------*/
+
+    public int addRoom(String maxUserNumber, String roomName, String sportType,
+                       String roomDescribe, String startTime, String endTime) {
+
+        int maxUserNumberInt = Integer.parseInt(maxUserNumber);
+
+        Room room = new Room(maxUserNumberInt, roomName, sportType, roomDescribe, startTime, endTime);
+
+
+        daoSession.update(room);
+        return 0;
+    }
+
+    public List<Room> getAllRoom() {
+        return daoSession.loadAll(Room.class);
+    }
+
+
 
 }
 

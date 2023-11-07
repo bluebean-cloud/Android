@@ -526,7 +526,6 @@ public class Upload extends AppCompatActivity {
     }
 
     public void save_knowledge(View view) {
-        //TODO 保存content，blanks，picture，label。
         String content = this.content.getText().toString();
         ArrayList<String> blanks = this.blanks;
         blanks.removeIf(blank -> !content.contains(blank));
@@ -540,26 +539,10 @@ public class Upload extends AppCompatActivity {
         Intent intent = getIntent();
         if (intent.getBooleanExtra("fromEdit", false)) {
             //TODO: 编辑知识
-//            byte[] image = new byte[3];
-//            if (bitmap != null) {
-//                ByteArrayOutputStream baos = new ByteArrayOutputStream();
-//                bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
-//                image = baos.toByteArray();
-//            }
-//
-//            Bundle bundle = new Bundle();
-//            bundle.putString("content", content);
-//            bundle.putByteArray("image", image);
-//            bundle.putString("title", title);
-//            bundle.putStringArrayList("blank", blanks);
-//            ArrayList<String> labels = new ArrayList<>();
-//            labels.add(label);
-//            bundle.putStringArrayList("label", labels);
-//            ret.putExtras(bundle);
             Intent ret = new Intent();
 
             result = db.updateKnowledge(MainActivity.name, oldContent, content, title, bitmap, label);
-            if(result == 0) {
+            if (result == 0) {
                 Toast.makeText(this, "已有相同内容，修改失败！", Toast.LENGTH_SHORT).show();
             } else if (result == 2) {
                 Toast.makeText(this, "标题不能为空", Toast.LENGTH_SHORT).show();
@@ -575,7 +558,7 @@ public class Upload extends AppCompatActivity {
             }
         } else {
             result = db.insertKnowledge(MainActivity.name, content, title, bitmap);
-            if(result == 0) {
+            if (result == 0) {
                 Toast.makeText(this, "已有相同内容，添加失败！", Toast.LENGTH_SHORT).show();
             } else if (result == 3) {
                 Toast.makeText(this, "标题不能为空", Toast.LENGTH_SHORT).show();
@@ -589,14 +572,7 @@ public class Upload extends AppCompatActivity {
                 Toast.makeText(this, "保存成功！", Toast.LENGTH_SHORT).show();
                 finish();
             }
-
         }
-
-
-    }
-
-    public void back(View view) {
-        finish();
     }
 
 }

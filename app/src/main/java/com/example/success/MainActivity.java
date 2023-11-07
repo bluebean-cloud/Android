@@ -1,22 +1,15 @@
 package com.example.success;
 
 import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.view.Window;
-import android.widget.Button;
-import android.widget.TextView;
 
 import com.example.success.entity.Knowledge;
 import com.example.success.entity.Word;
-import com.example.success.ui.home.HomeFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
@@ -41,7 +34,6 @@ public class MainActivity extends AppCompatActivity {
     static int knowledgeSum; //任务总数
     static int wordIndex; //当前单词index
     static int knowledgeIndex; //当前任务index
-
 
     static ArrayList<Word> wordTest; //单词考察
     static ArrayList<Knowledge> knowledgeTest; //知识点考察
@@ -76,7 +68,7 @@ public class MainActivity extends AppCompatActivity {
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.navigation_home, R.id.navigation_dashboard, R.id.navigation_notifications, R.id.navigation_person)
+                R.id.navigation_home, R.id.navigation_dashboard, R.id.navigation_room, R.id.navigation_person)
                 .build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_activity_main);
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);

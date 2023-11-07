@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/blue2"
+    tools:context=".AddFriend">
+
+
+    <ImageView
+        android:id="@+id/search_room_icon"
+        android:layout_width="36dp"
+        android:layout_height="36dp"
+        android:layout_marginStart="36dp"
+        android:layout_marginTop="36dp"
+        android:layout_marginEnd="36dp"
+        android:src="@drawable/search"
+        app:layout_constraintEnd_toStartOf="@+id/search_knowledge"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/search_knowledge"
+        android:layout_width="390dp"
+        android:layout_height="56dp"
+        android:layout_marginTop="36dp"
+        android:hint="搜索房间"
+        android:imeOptions="actionSearch"
+        android:singleLine="true"
+        android:textSize="20sp"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:layout_editor_absoluteX="104dp" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="378dp"
+        android:layout_height="551dp"
+        android:layout_marginBottom="76dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.515"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <ImageView
+        android:id="@+id/add_room_icon"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="36dp"
+        android:layout_marginTop="36dp"
+        android:layout_marginEnd="36dp"
+        android:src="@android:drawable/ic_input_add"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/search_knowledge"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
