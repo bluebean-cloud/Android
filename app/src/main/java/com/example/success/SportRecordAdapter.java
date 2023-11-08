@@ -12,6 +12,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.success.entity.SportRecord;
+
 import java.util.List;
 
 public class SportRecordAdapter extends RecyclerView.Adapter<SportRecordAdapter.ViewHolder> {
@@ -46,7 +48,7 @@ public class SportRecordAdapter extends RecyclerView.Adapter<SportRecordAdapter.
                 //传递用户头像
                 //TODO:设置用户图像
                 //传递用户名
-                intent.putExtra("textViewUserIdInDetail", "Arong");//TODO:设置userId
+                intent.putExtra("textViewUserIdInDetail", CurrentUser.getUser().getName());//TODO:设置userId
                 //传递创建时间
                 intent.putExtra("textViewCreateDateInDetail", holder.createDateTextView.getText().toString());
                 //传递运动项目
@@ -90,9 +92,12 @@ public class SportRecordAdapter extends RecyclerView.Adapter<SportRecordAdapter.
     }
 
     public void addSportRecord(SportRecord sportRecord) {
+        //更新数据库内容，插入到数据库中
+        DatabaseInterface db = MainActivity.db;
+        db.createSportRecord(sportRecord);
+        // 通知适配器新记录已插入到位置 0
         sportRecords.add(0, sportRecord);
-        notifyItemInserted(0); // 通知适配器新记录已插入到位置 0
-
+        notifyItemInserted(0);
         // 滚动到最新的记录位置
         recyclerView.scrollToPosition(0); // 或者使用 smoothScrollToPosition(0)方法，但前者更丝滑
     }

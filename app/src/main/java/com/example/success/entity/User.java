@@ -10,10 +10,12 @@ import org.greenrobot.greendao.annotation.ToMany;
 import org.greenrobot.greendao.annotation.Unique;
 
 import java.util.List;
+
 import com.example.success.generatedDao.DaoSession;
 import com.example.success.generatedDao.UserDao;
 import com.example.success.generatedDao.KnowledgeDao;
 import com.example.success.generatedDao.WordDao;
+import com.example.success.generatedDao.SportRecordDao;
 
 @Entity
 public class User {
@@ -50,6 +52,9 @@ public class User {
     @ToMany(referencedJoinProperty = "userId") // Knowledge 中的 userId
     private List<Knowledge> knowledgeList;
 
+    @ToMany(referencedJoinProperty = "userId")
+    private List<SportRecord> sportRecords;
+
     /**
      * 多对多关系
      */
@@ -59,17 +64,21 @@ public class User {
             targetProperty = "user2Id")
     private List<User> friends;
 
-    /** Used to resolve relations */
+    /**
+     * Used to resolve relations
+     */
     @Generated(hash = 2040040024)
     private transient DaoSession daoSession;
 
-    /** Used for active entity operations. */
+    /**
+     * Used for active entity operations.
+     */
     @Generated(hash = 1507654846)
     private transient UserDao myDao;
 
     @Generated(hash = 1824102260)
     public User(Long id, int taskNum, int wordTaskNum, int knowledgeTaskNum, String name,
-            String password, int noteTime, byte[] userPhoto) {
+                String password, int noteTime, byte[] userPhoto) {
         this.id = id;
         this.taskNum = taskNum;
         this.wordTaskNum = wordTaskNum;
@@ -154,7 +163,9 @@ public class User {
         return wordList;
     }
 
-    /** Resets a to-many relationship, making the next get call to query for a fresh result. */
+    /**
+     * Resets a to-many relationship, making the next get call to query for a fresh result.
+     */
     @Generated(hash = 1532061811)
     public synchronized void resetWordList() {
         wordList = null;
@@ -183,7 +194,9 @@ public class User {
         return knowledgeList;
     }
 
-    /** Resets a to-many relationship, making the next get call to query for a fresh result. */
+    /**
+     * Resets a to-many relationship, making the next get call to query for a fresh result.
+     */
     @Generated(hash = 459174405)
     public synchronized void resetKnowledgeList() {
         knowledgeList = null;
@@ -211,7 +224,9 @@ public class User {
         return friends;
     }
 
-    /** Resets a to-many relationship, making the next get call to query for a fresh result. */
+    /**
+     * Resets a to-many relationship, making the next get call to query for a fresh result.
+     */
     @Generated(hash = 1638260638)
     public synchronized void resetFriends() {
         friends = null;
@@ -253,7 +268,9 @@ public class User {
         myDao.update(this);
     }
 
-    /** called by internal mechanisms, do not call yourself. */
+    /**
+     * called by internal mechanisms, do not call yourself.
+     */
     @Generated(hash = 2059241980)
     public void __setDaoSession(DaoSession daoSession) {
         this.daoSession = daoSession;
@@ -274,6 +291,34 @@ public class User {
 
     public void setKnowledgeTaskNum(int knowledgeTaskNum) {
         this.knowledgeTaskNum = knowledgeTaskNum;
+    }
+
+    /**
+     * To-many relationship, resolved on first access (and after reset).
+     * Changes to to-many relations are not persisted, make changes to the target entity.
+     */
+    @Generated(hash = 1055204179)
+    public List<SportRecord> getSportRecords() {
+        if (sportRecords == null) {
+            final DaoSession daoSession = this.daoSession;
+            if (daoSession == null) {
+                throw new DaoException("Entity is detached from DAO context");
+            }
+            SportRecordDao targetDao = daoSession.getSportRecordDao();
+            List<SportRecord> sportRecordsNew = targetDao._queryUser_SportRecords(id);
+            synchronized (this) {
+                if (sportRecords == null) {
+                    sportRecords = sportRecordsNew;
+                }
+            }
+        }
+        return sportRecords;
+    }
+
+    /** Resets a to-many relationship, making the next get call to query for a fresh result. */
+    @Generated(hash = 305977315)
+    public synchronized void resetSportRecords() {
+        sportRecords = null;
     }
 
 }

@@ -16,9 +16,12 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.success.AddSportRecordActivity;
+import com.example.success.CurrentUser;
+import com.example.success.DatabaseInterface;
+import com.example.success.MainActivity;
 import com.example.success.MainViewModel;
 import com.example.success.R;
-import com.example.success.SportRecord;
+import com.example.success.entity.SportRecord;
 import com.example.success.SportRecordAdapter;
 import com.example.success.databinding.FragmentHomeBinding;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -39,6 +42,7 @@ public class HomeFragment extends Fragment {
     private SportRecordAdapter adapter;
     private static final int ADD_RECORD_REQUEST_CODE = 1;
 
+    DatabaseInterface db = MainActivity.db;
     List<SportRecord> sportRecords = new ArrayList<>();
 
     @Nullable
@@ -57,6 +61,7 @@ public class HomeFragment extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
         // 创建适配器
+        sportRecords = db.getAllRecord();
         adapter = new SportRecordAdapter(sportRecords);
         adapter.setRecyclerView(recyclerView); // 设置 RecyclerView
 
@@ -93,11 +98,11 @@ public class HomeFragment extends Fragment {
             // 创建新的SportRecord对象
             if (image_num == 1) {
                 byteArray1 = data.getByteArrayExtra("image1");
-                newSportRecord = new SportRecord(sportName, duration, sportLocation, createDate, byteArray1);
+                newSportRecord = new SportRecord(CurrentUser.getUser().getId(), sportName, duration, sportLocation, createDate, byteArray1, null);
             } else if (image_num == 2) {
                 byteArray1 = data.getByteArrayExtra("image1");
                 byteArray2 = data.getByteArrayExtra("image2");
-                newSportRecord = new SportRecord(sportName, duration, sportLocation, createDate, byteArray1, byteArray2);
+                newSportRecord = new SportRecord(CurrentUser.getUser().getId(), sportName, duration, sportLocation, createDate, byteArray1, byteArray2);
             }
             // 将新的运动记录添加到适配器中
             adapter.addSportRecord(newSportRecord);

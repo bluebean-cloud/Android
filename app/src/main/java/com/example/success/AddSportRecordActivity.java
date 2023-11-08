@@ -224,6 +224,7 @@ public class AddSportRecordActivity extends Activity {
                 resultIntent.putExtra("image2", byteArray2);
             }
             setResult(RESULT_OK, resultIntent);
+            Toast.makeText(this, "添加成功", Toast.LENGTH_SHORT).show();
             // 结束当前界面，返回到上一个界面
             finish();
         }
