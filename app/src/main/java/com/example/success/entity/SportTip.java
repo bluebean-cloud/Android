@@ -1,5 +1,7 @@
 package com.example.success.entity;
 
+import android.net.Uri;
+
 import org.greenrobot.greendao.annotation.Entity;
 import org.greenrobot.greendao.annotation.Id;
 import org.greenrobot.greendao.annotation.Generated;

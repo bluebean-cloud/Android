@@ -85,6 +85,7 @@ public class Upload extends AppCompatActivity {
     private Long id;
     private String oldContent;
 
+    @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

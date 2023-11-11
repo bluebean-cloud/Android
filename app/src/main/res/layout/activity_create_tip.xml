@@ -13,7 +13,7 @@
     <!-- 内容输入框 -->
 
     <EditText
-        android:id="@+id/editTextTitle"
+        android:id="@+id/tipTitle"
         android:layout_width="405dp"
         android:layout_height="41dp"
         android:layout_marginTop="8dp"
@@ -29,7 +29,7 @@
     <!-- 显示已选择的图片 -->
 
     <EditText
-        android:id="@+id/editTextContent"
+        android:id="@+id/tipContent"
         android:layout_width="403dp"
         android:layout_height="297dp"
         android:hint="内容"
@@ -39,41 +39,40 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/editTextTitle" />
+        app:layout_constraintTop_toBottomOf="@id/tipTitle" />
 
     <Button
         android:id="@+id/buttonAddImage"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="136dp"
+        android:layout_marginTop="36dp"
         android:text="添加图片"
+        android:onClick="addPhoto"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.52"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/editTextContent" />
+        app:layout_constraintTop_toBottomOf="@id/tipContent" />
+
+    <ImageView
+        android:id="@+id/tip_photo"
+        android:layout_width="181dp"
+        android:layout_height="129dp"
+        android:contentDescription="@string/just_a_picture"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.727" />
 
     <Button
         android:id="@+id/buttonPublish"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
+        android:layout_marginBottom="76dp"
         android:text="发布"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.51"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/imageViewSelectedImage" />
-
-    <ImageView
-        android:id="@+id/imageViewSelectedImage"
-        android:layout_width="match_parent"
-        android:layout_height="200dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/buttonAddImage"
-        android:layout_marginTop="8dp"
-        android:scaleType="centerCrop"
-        android:visibility="gone"/>
-
-    <!-- 发布按钮 -->
+        app:layout_constraintHorizontal_bias="0.507"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

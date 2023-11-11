@@ -40,6 +40,7 @@ public class User {
 
     private byte[] userPhoto;  // 头像
 
+
     /**
      * 一对多关系
      */

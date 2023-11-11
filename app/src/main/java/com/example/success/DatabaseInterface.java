@@ -66,12 +66,20 @@ public class DatabaseInterface {
         this.daoSession = daoMaster.newSession();
     }
 
-
-    public void createTip(String title, String content) {
+    public void createTip(String username, String title, String content, Bitmap bitMap) {
+        User user = getUserByName(username);
         SportTip tip = new SportTip();
         tip.setTitle(title);
         tip.setContent(content);
+        tip.setUserId(user.getId());
+
+        if (bitMap != null) {
+            tip.setPhoto(bitmapToByteArray(bitMap));
+        }
+
+        user.getSportTipList().add(tip);
         daoSession.insert(tip);
+        daoSession.update(user);
     }
 
     public List<SportTip> getAllTip() {
