@@ -62,7 +62,7 @@ public class HomeFragment extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
         // 创建适配器
-        sportRecords = db.getAllRecord();
+        sportRecords = db.getUserRecord(CurrentUser.getUser().getId());
         //将sportRecord逆序
         Collections.reverse(sportRecords);
         adapter = new SportRecordAdapter(sportRecords);

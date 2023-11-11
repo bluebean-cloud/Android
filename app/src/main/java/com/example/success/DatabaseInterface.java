@@ -28,6 +28,7 @@ import com.example.success.generatedDao.KnowledgeHistoryDao;
 import com.example.success.generatedDao.KnowledgeLabelDao;
 import com.example.success.generatedDao.KnowledgeTaskDao;
 import com.example.success.generatedDao.LabelDao;
+import com.example.success.generatedDao.SportRecordDao;
 import com.example.success.generatedDao.UserDao;
 import com.example.success.generatedDao.WordDao;
 import com.example.success.generatedDao.WordHistoryDao;
@@ -73,6 +74,11 @@ public class DatabaseInterface {
 
     public List<SportRecord> getAllRecord() {
         QueryBuilder<SportRecord> queryBuilder = daoSession.queryBuilder(SportRecord.class);
+        return queryBuilder.list();
+    }
+
+    public List<SportRecord> getUserRecord(Long id) {
+        QueryBuilder<SportRecord> queryBuilder = daoSession.queryBuilder(SportRecord.class).where(SportRecordDao.Properties.UserId.eq(id));
         return queryBuilder.list();
     }
 
