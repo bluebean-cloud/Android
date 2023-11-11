@@ -15,6 +15,7 @@ import com.example.success.entity.KnowledgeHistory;
 import com.example.success.entity.KnowledgeLabel;
 import com.example.success.entity.KnowledgeTask;
 import com.example.success.entity.Label;
+import com.example.success.entity.SportRecord;
 import com.example.success.entity.SportTip;
 import com.example.success.entity.User;
 import com.example.success.entity.Word;
@@ -29,6 +30,7 @@ import com.example.success.generatedDao.KnowledgeHistoryDao;
 import com.example.success.generatedDao.KnowledgeLabelDao;
 import com.example.success.generatedDao.KnowledgeTaskDao;
 import com.example.success.generatedDao.LabelDao;
+import com.example.success.generatedDao.SportRecordDao;
 import com.example.success.generatedDao.SportTipDao;
 import com.example.success.generatedDao.UserDao;
 import com.example.success.generatedDao.WordDao;
@@ -52,6 +54,7 @@ public class DaoSession extends AbstractDaoSession {
     private final DaoConfig knowledgeLabelDaoConfig;
     private final DaoConfig knowledgeTaskDaoConfig;
     private final DaoConfig labelDaoConfig;
+    private final DaoConfig sportRecordDaoConfig;
     private final DaoConfig sportTipDaoConfig;
     private final DaoConfig userDaoConfig;
     private final DaoConfig wordDaoConfig;
@@ -66,6 +69,7 @@ public class DaoSession extends AbstractDaoSession {
     private final KnowledgeLabelDao knowledgeLabelDao;
     private final KnowledgeTaskDao knowledgeTaskDao;
     private final LabelDao labelDao;
+    private final SportRecordDao sportRecordDao;
     private final SportTipDao sportTipDao;
     private final UserDao userDao;
     private final WordDao wordDao;
@@ -98,6 +102,9 @@ public class DaoSession extends AbstractDaoSession {
         labelDaoConfig = daoConfigMap.get(LabelDao.class).clone();
         labelDaoConfig.initIdentityScope(type);
 
+        sportRecordDaoConfig = daoConfigMap.get(SportRecordDao.class).clone();
+        sportRecordDaoConfig.initIdentityScope(type);
+
         sportTipDaoConfig = daoConfigMap.get(SportTipDao.class).clone();
         sportTipDaoConfig.initIdentityScope(type);
 
@@ -123,6 +130,7 @@ public class DaoSession extends AbstractDaoSession {
         knowledgeLabelDao = new KnowledgeLabelDao(knowledgeLabelDaoConfig, this);
         knowledgeTaskDao = new KnowledgeTaskDao(knowledgeTaskDaoConfig, this);
         labelDao = new LabelDao(labelDaoConfig, this);
+        sportRecordDao = new SportRecordDao(sportRecordDaoConfig, this);
         sportTipDao = new SportTipDao(sportTipDaoConfig, this);
         userDao = new UserDao(userDaoConfig, this);
         wordDao = new WordDao(wordDaoConfig, this);
@@ -137,6 +145,7 @@ public class DaoSession extends AbstractDaoSession {
         registerDao(KnowledgeLabel.class, knowledgeLabelDao);
         registerDao(KnowledgeTask.class, knowledgeTaskDao);
         registerDao(Label.class, labelDao);
+        registerDao(SportRecord.class, sportRecordDao);
         registerDao(SportTip.class, sportTipDao);
         registerDao(User.class, userDao);
         registerDao(Word.class, wordDao);
@@ -153,6 +162,7 @@ public class DaoSession extends AbstractDaoSession {
         knowledgeLabelDaoConfig.clearIdentityScope();
         knowledgeTaskDaoConfig.clearIdentityScope();
         labelDaoConfig.clearIdentityScope();
+        sportRecordDaoConfig.clearIdentityScope();
         sportTipDaoConfig.clearIdentityScope();
         userDaoConfig.clearIdentityScope();
         wordDaoConfig.clearIdentityScope();
@@ -187,6 +197,10 @@ public class DaoSession extends AbstractDaoSession {
 
     public LabelDao getLabelDao() {
         return labelDao;
+    }
+
+    public SportRecordDao getSportRecordDao() {
+        return sportRecordDao;
     }
 
     public SportTipDao getSportTipDao() {

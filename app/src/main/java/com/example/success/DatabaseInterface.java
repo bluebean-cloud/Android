@@ -12,6 +12,7 @@ import com.example.success.entity.KnowledgeHistory;
 import com.example.success.entity.KnowledgeLabel;
 import com.example.success.entity.KnowledgeTask;
 import com.example.success.entity.Label;
+import com.example.success.entity.SportRecord;
 import com.example.success.entity.SportTip;
 import com.example.success.entity.User;
 import com.example.success.entity.Word;
@@ -54,7 +55,7 @@ public class DatabaseInterface {
     private final DaoSession daoSession;
     private final Context context;
     private final DaoMaster.DevOpenHelper helper;
-    private final SQLiteDatabase db;
+    public final SQLiteDatabase db;
     private final DaoMaster daoMaster;
     private SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 
@@ -64,6 +65,15 @@ public class DatabaseInterface {
         this.db = helper.getWritableDatabase();
         this.daoMaster = new DaoMaster(db);
         this.daoSession = daoMaster.newSession();
+    }
+
+    public void createSportRecord(SportRecord sportRecord) {
+        daoSession.insert(sportRecord);
+    }
+
+    public List<SportRecord> getAllRecord() {
+        QueryBuilder<SportRecord> queryBuilder = daoSession.queryBuilder(SportRecord.class);
+        return queryBuilder.list();
     }
 
     public void createTip(String username, String title, String content, Bitmap bitMap) {
@@ -1670,7 +1680,7 @@ public class DatabaseInterface {
         } catch (NumberFormatException e) {
             return 0;
         }
-        if(num <= 0 || num > 200) {
+        if (num <= 0 || num > 200) {
             return 2;
         }
         User user = getUserByName(username);
@@ -1686,7 +1696,7 @@ public class DatabaseInterface {
         } catch (NumberFormatException e) {
             return 0;
         }
-        if(num <= 0 || num > 200) {
+        if (num <= 0 || num > 200) {
             return 2;
         }
         User user = getUserByName(username);
