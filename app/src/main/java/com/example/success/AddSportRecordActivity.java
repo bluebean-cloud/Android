@@ -256,7 +256,7 @@ public class AddSportRecordActivity extends Activity {
                 requestCode = TAKE_PHOTO;
                 takePhoto();
                 if (imageIndex == 0) {
-                    curImage = record_photo2;
+                    curImage = record_photo1;
                     imageIndex++;
                 } else if (imageIndex == 1) {
                     curImage = record_photo2;

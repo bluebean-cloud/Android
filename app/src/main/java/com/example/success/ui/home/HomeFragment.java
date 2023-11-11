@@ -30,6 +30,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
 import java.util.TimeZone;
@@ -62,6 +63,8 @@ public class HomeFragment extends Fragment {
 
         // 创建适配器
         sportRecords = db.getAllRecord();
+        //将sportRecord逆序
+        Collections.reverse(sportRecords);
         adapter = new SportRecordAdapter(sportRecords);
         adapter.setRecyclerView(recyclerView); // 设置 RecyclerView
 
