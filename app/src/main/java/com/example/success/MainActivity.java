@@ -3,10 +3,17 @@ package com.example.success;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.os.Handler;
+import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.Button;
+import android.widget.PopupWindow;
 import android.widget.TextView;
 
 import com.example.success.entity.Knowledge;
@@ -91,6 +98,15 @@ public class MainActivity extends AppCompatActivity {
         mainViewModel.setWordSum(wordSum);
         mainViewModel.setWordTestSum(wordTestSum);
 
+        // 创建弹出窗口
+        SportRecommendationPopup sportPopup = new SportRecommendationPopup(this);
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                sportPopup.show(findViewById(R.id.container)); // 传入一个触发弹出窗口的 View
+            }
+        }, 500); // 500毫秒的延迟，你可以根据实际情况调整
+
     }
 
     public void click(View view) {
@@ -98,7 +114,7 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    public void initData(){
+    public void initData() {
         wordTask = (ArrayList<Word>) db.getWordTaskForReview(name);
         knowledgeTask = (ArrayList<Knowledge>) db.getKnowledgeTaskForReview(name);
         wordSum = wordTask.size();
@@ -123,7 +139,7 @@ public class MainActivity extends AppCompatActivity {
         //db.addLabel("测试3");
     }
 
-    public static void updateData(){
+    public static void updateData() {
         wordTask = (ArrayList<Word>) db.getWordTaskForReview(name);
         knowledgeTask = (ArrayList<Knowledge>) db.getKnowledgeTaskForReview(name);
         wordSum = wordTask.size();
@@ -139,7 +155,7 @@ public class MainActivity extends AppCompatActivity {
         updateMainView();
     }
 
-    public static void updateTest(){
+    public static void updateTest() {
         wordTest = (ArrayList<Word>) db.getWordTask(name);
         knowledgeTest = (ArrayList<Knowledge>) db.getKnowledgeTask(name);
         wordTestSum = wordTest.size();
@@ -149,7 +165,7 @@ public class MainActivity extends AppCompatActivity {
         updateMainView();
     }
 
-    public static void updateMainView(){
+    public static void updateMainView() {
         mainViewModel.setKnowledgeIndex(knowledgeIndex);
         mainViewModel.setKnowledgeSum(knowledgeSum);
         mainViewModel.setKnowledgetestIndex(knowledgeTestIndex);
