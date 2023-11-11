@@ -12,7 +12,7 @@ public class WeatherApiClient {
     public static void getCurrentWeather(String city, final WeatherCallback callback) {
         WeatherApiService apiService = RetrofitClient.getRetrofitInstance().create(WeatherApiService.class);
 
-        Call<WeatherResponse> call = apiService.getCurrentWeather(city, API_KEY);
+        Call<WeatherResponse> call = apiService.getCurrentWeather(city, API_KEY,"th");
         call.enqueue(new Callback<WeatherResponse>() {
             @Override
             public void onResponse(Call<WeatherResponse> call, Response<WeatherResponse> response) {

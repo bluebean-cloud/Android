@@ -8,7 +8,8 @@ public interface WeatherApiService {
     @GET("weather")
     Call<WeatherResponse> getCurrentWeather(
             @Query("q") String city,
-            @Query("appid") String apiKey
+            @Query("appid") String apiKey,
+            @Query("lang") String language
     );
 }
 
