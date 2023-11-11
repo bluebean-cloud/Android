@@ -12,6 +12,7 @@ import com.example.success.entity.KnowledgeHistory;
 import com.example.success.entity.KnowledgeLabel;
 import com.example.success.entity.KnowledgeTask;
 import com.example.success.entity.Label;
+import com.example.success.entity.SportTip;
 import com.example.success.entity.User;
 import com.example.success.entity.Word;
 import com.example.success.entity.WordHistory;
@@ -63,6 +64,27 @@ public class DatabaseInterface {
         this.db = helper.getWritableDatabase();
         this.daoMaster = new DaoMaster(db);
         this.daoSession = daoMaster.newSession();
+    }
+
+    public void createTip(String username, String title, String content, Bitmap bitMap) {
+        User user = getUserByName(username);
+        SportTip tip = new SportTip();
+        tip.setTitle(title);
+        tip.setContent(content);
+        tip.setUserId(user.getId());
+
+        if (bitMap != null) {
+            tip.setPhoto(bitmapToByteArray(bitMap));
+        }
+
+        user.getSportTipList().add(tip);
+        daoSession.insert(tip);
+        daoSession.update(user);
+    }
+
+    public List<SportTip> getAllTip() {
+        QueryBuilder<SportTip> queryBuilder = daoSession.queryBuilder(SportTip.class);
+        return queryBuilder.list();
     }
 
     /**

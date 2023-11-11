@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ShowTip">
+
+    <ImageView
+        android:id="@+id/imageViewSportDetailHeader"
+        android:layout_width="554dp"
+        android:layout_height="277dp"
+        android:layout_marginBottom="548dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.503"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <!--        android:src="@drawable/sport_record_detail_header"-->
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/test_view_tip_detail_card"
+        android:layout_width="387dp"
+        android:layout_height="574dp"
+        android:layout_marginBottom="12dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="574dp"
+            tools:layout_editor_absoluteX="0dp"
+            tools:layout_editor_absoluteY="-10dp">
+
+<!--            <ImageView-->
+<!--                android:id="@+id/imageViewUserHeaderImageInSportDetail"-->
+<!--                android:layout_width="72dp"-->
+<!--                android:layout_height="72dp"-->
+<!--                android:src="@drawable/beautiful"-->
+<!--                app:layout_constraintBottom_toBottomOf="parent"-->
+<!--                app:layout_constraintEnd_toEndOf="parent"-->
+<!--                app:layout_constraintHorizontal_bias="0.05"-->
+<!--                app:layout_constraintStart_toStartOf="parent"-->
+<!--                app:layout_constraintTop_toTopOf="parent"-->
+<!--                app:layout_constraintVertical_bias="0.009" />-->
+
+            <TextView
+                android:id="@+id/test_view_tip_detail_user"
+                android:layout_width="160dp"
+                android:layout_height="34dp"
+                android:layout_marginTop="4dp"
+                android:text="ARong"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.449"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+<!--            <TextView-->
+<!--                android:id="@+id/textViewCreateDateInDetail"-->
+<!--                android:layout_width="200dp"-->
+<!--                android:layout_height="23dp"-->
+<!--                android:layout_marginStart="16dp"-->
+<!--                android:text="2023-10-30"-->
+<!--                android:textColor="#AAA3A3"-->
+<!--                app:layout_constraintBottom_toBottomOf="parent"-->
+<!--                app:layout_constraintEnd_toEndOf="parent"-->
+<!--                app:layout_constraintHorizontal_bias="0.502"-->
+<!--                app:layout_constraintStart_toStartOf="parent"-->
+<!--                app:layout_constraintTop_toTopOf="parent"-->
+<!--                app:layout_constraintVertical_bias="0.098" />-->
+
+            <TextView
+                android:id="@+id/test_view_tip_detail_title"
+                android:layout_width="145dp"
+                android:layout_height="67dp"
+                android:layout_marginTop="120dp"
+                android:text="运动项目"
+                android:textColor="#AAA3A3"
+                android:textSize="16sp"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:ignore="MissingConstraints"
+                tools:layout_editor_absoluteX="16dp" />
+
+            <TextView
+                android:id="@+id/test_view_tip_detail_content"
+                android:layout_width="335dp"
+                android:layout_height="331dp"
+                android:layout_marginStart="16dp"
+                android:layout_weight="1"
+                android:textSize="16sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.277"
+                app:layout_constraintStart_toStartOf="parent"
+                tools:ignore="MissingConstraints"
+                tools:layout_editor_absoluteY="241dp" />
+
+            <ImageView
+                android:id="@+id/test_view_tip_detail_image"
+                android:layout_width="181dp"
+                android:layout_height="129dp"
+                android:contentDescription="@string/just_a_picture"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.873"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.208" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

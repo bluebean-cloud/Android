@@ -19,6 +19,10 @@
         android:theme="@style/Theme.Success"
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
+        <activity android:name=".ShowTip"
+            android:exported="true"
+            android:label="show_tip"
+            />
         <activity
             android:name=".ChangePass"
             android:exported="true"
@@ -152,6 +156,13 @@
         </activity>
         <activity
             android:name=".showFriends"
+            android:exported="true"
+            android:label="@string/app_name">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity android:name=".CreateTip"
             android:exported="true"
             android:label="@string/app_name">
             <meta-data

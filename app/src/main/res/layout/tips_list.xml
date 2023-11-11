@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_margin="8dp"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="403dp"
+        android:layout_height="145dp"
+        android:background="#E2F3F8"
+        android:minWidth="?android:attr/scrollbarSize"
+        tools:layout_editor_absoluteX="1dp">
+
+        <TextView
+            android:id="@+id/tip_title"
+            android:layout_width="115dp"
+            android:layout_height="44dp"
+            android:text="标题"
+            android:textColor="#AAA3A3"
+            android:textSize="30sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.009"
+            tools:ignore="MissingConstraints" />
+
+        <TextView
+            android:id="@+id/tip_content"
+            android:layout_width="193dp"
+            android:layout_height="99dp"
+            android:layout_marginStart="104dp"
+            android:text="内容"
+            android:textColor="#AAA3A3"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+
+        <TextView
+            android:id="@+id/tip_user"
+            android:layout_width="143dp"
+            android:layout_height="33dp"
+            android:layout_marginStart="188dp"
+            android:layout_marginBottom="96dp"
+            android:text="创建者"
+            android:textColor="#AAA3A3"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <ImageView
+            android:id="@+id/tip_list_photo"
+            android:layout_width="106dp"
+            android:layout_height="78dp"
+            android:contentDescription="@string/just_a_picture"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.671" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.cardview.widget.CardView>
