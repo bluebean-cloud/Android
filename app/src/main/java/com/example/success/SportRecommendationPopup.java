@@ -78,16 +78,15 @@ public class SportRecommendationPopup {
 
     public void recommend() {
         //设置天气信息和推荐内容
-        final int[] temp = new int[1];
-        final String[] weather = {""};
         WeatherApiClient.getCurrentWeather("Beijing", new WeatherApiClient.WeatherCallback() {
             @Override
             public void onSuccess(String weatherDescription, double temperature) {
                 // 处理成功获取到的天气和温度数据
-                temp[0] = (int) (temperature - 273);
-                weather[0] = weatherDescription;
-                String s = weatherDescription + " " + temp[0] + "°C";
+                int temp = (int) (temperature - 273);
+                String weather = weatherDescription;
+                String s = weatherDescription + " " + temp + "°C";
                 textWeather.setText(s);
+                recommendByWeather(temp, weather);
             }
 
             @Override
@@ -96,6 +95,10 @@ public class SportRecommendationPopup {
                 Log.e("Weather", "Error: " + errorMessage);
             }
         });
+
+    }
+
+    public void recommendByWeather(int temp, String weather) {
         //进行推荐,根据天气和温度进行推荐
         DatabaseInterface db = MainActivity.db;
         List<SportRecord> sportRecordsForOwn = db.getUserRecord(CurrentUser.getUser().getId());
@@ -138,10 +141,11 @@ public class SportRecommendationPopup {
                 targetSport = sportName;
             }
         }
+        System.out.println(weather);
         //小于10度
-        if (temp[0] <= 10) {
-            if (weather[0].equals("Rain") || weather[0].equals("Mist") || weather[0].equals("Thunderstorm") ||
-                    weather[0].equals("Snow") || weather[0].equals("Smoke") || weather[0].equals("Haze")) {
+        if (temp <= 10) {
+            if (weather.equals("Rain") || weather.equals("Mist") || weather.equals("Thunderstorm") ||
+                    weather.equals("Snow") || weather.equals("Smoke") || weather.equals("Haze")) {
                 maxScore = 0;
                 for (String sportName : sportInside) {
                     score = scores.getOrDefault(sportName, 0.0);
@@ -155,8 +159,8 @@ public class SportRecommendationPopup {
                 textRecommendBottom.setText("天冷了,注意保暖");
             }
         } else {
-            if (weather[0].equals("Rain") || weather[0].equals("Mist") || weather[0].equals("Thunderstorm") ||
-                    weather[0].equals("Snow") || weather[0].equals("Smoke") || weather[0].equals("Haze")) {
+            if (weather.equals("Rain") || weather.equals("Mist") || weather.equals("Thunderstorm") ||
+                    weather.equals("Snow") || weather.equals("Smoke") || weather.equals("Haze")) {
                 maxScore = 0;
                 for (String sportName : sportInside) {
                     score = scores.getOrDefault(sportName, 0.0);
@@ -165,6 +169,7 @@ public class SportRecommendationPopup {
                         targetSport = sportName;
                     }
                 }
+                System.out.println(weather);
                 textRecommendBottom.setText("坚持锻炼,风雨无阻");
             } else {
                 textRecommendBottom.setText("一起锻炼锻炼吧");
