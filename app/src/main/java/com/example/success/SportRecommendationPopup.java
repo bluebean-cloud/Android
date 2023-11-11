@@ -152,7 +152,7 @@ public class SportRecommendationPopup {
                 }
                 textRecommendBottom.setText("天冷了,注意保暖");
             } else {
-                textRecommendBottom.setText("坚持锻炼,风雨无阻");
+                textRecommendBottom.setText("天冷了,注意保暖");
             }
         } else {
             if (weather[0].equals("Rain") || weather[0].equals("Mist") || weather[0].equals("Thunderstorm") ||
