@@ -53,12 +53,11 @@
             android:id="@+id/textViewSportName"
             android:layout_width="160dp"
             android:layout_height="25dp"
-            android:layout_marginStart="16dp"
             android:layout_weight="1"
             android:textSize="16sp"
             app:layout_constraintBaseline_toBaselineOf="@+id/textViewSportRecordItem1"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintHorizontal_bias="0.107"
             app:layout_constraintStart_toEndOf="@+id/textViewSportRecordItem1" />
 
         <TextView
@@ -112,11 +111,13 @@
             android:id="@+id/ImageViewSportItem"
             android:layout_width="105dp"
             android:layout_height="99dp"
+            android:layout_marginEnd="8dp"
+            android:adjustViewBounds="true"
+            android:cropToPadding="true"
             android:src="@drawable/buaa"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.944"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/textViewDuration"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.186" />
 

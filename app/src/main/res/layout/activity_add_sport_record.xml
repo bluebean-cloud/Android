@@ -13,13 +13,10 @@
         android:layout_height="36dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="24dp"
-        android:layout_marginEnd="16dp"
         android:text="上传照片"
         android:textColor="@color/black"
         android:textSize="24sp"
         android:textStyle="bold"
-        app:layout_constraintEnd_toStartOf="@+id/textView9"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editTextSportLocation" />
 
@@ -29,13 +26,12 @@
         android:layout_height="35dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="24dp"
-        android:layout_marginEnd="16dp"
         android:text="运动地点"
         android:textColor="@color/black"
         android:textSize="24sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editTextDuration" />
 
@@ -59,12 +55,13 @@
         android:id="@+id/editTextSportLocation"
         android:layout_width="378dp"
         android:layout_height="66dp"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
         android:ems="10"
         android:hint="SportLocation"
         android:inputType="text"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.484"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textViewInAddSportRecord3" />
 
@@ -121,13 +118,14 @@
         android:id="@+id/editTextSportName"
         android:layout_width="380dp"
         android:layout_height="69dp"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
         android:ems="10"
         android:focusable="false"
         android:hint="SportName"
         android:inputType="text"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.516"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textViewInAddSportRecord1" />
 
@@ -135,13 +133,14 @@
         android:id="@+id/editTextDuration"
         android:layout_width="380dp"
         android:layout_height="69dp"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
         android:ems="10"
         android:focusable="false"
         android:hint="Time"
         android:inputType="date"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.516"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textViewInAddSportRecord2" />
 
@@ -165,9 +164,11 @@
         android:id="@+id/textView9"
         android:layout_width="156dp"
         android:layout_height="23dp"
-        android:layout_marginEnd="136dp"
+        android:layout_marginEnd="112dp"
         android:text="（最多上传两张照片）"
         app:layout_constraintBaseline_toBaselineOf="@+id/textViewInAddSportRecord4"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/textViewInAddSportRecord4" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
