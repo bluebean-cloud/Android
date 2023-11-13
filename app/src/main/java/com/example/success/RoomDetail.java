@@ -11,11 +11,6 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.success.entity.Room;
-import com.example.success.entity.User;
-import com.example.success.ui.room.RoomFragment;
-
-import java.util.List;
 import java.util.Objects;
 
 public class RoomDetail extends AppCompatActivity {
@@ -33,8 +28,9 @@ public class RoomDetail extends AppCompatActivity {
 
         // 初始化各个TextView
         TextView roomNameTextView = findViewById(R.id.room_detail_name);
-        TextView sportTypeTextView = findViewById(R.id.textViewSportNameInDetail);
-        TextView maxUserNumberTextView = findViewById(R.id.room_detail_max_number);
+        TextView roomAdminNameTextView = findViewById(R.id.room_detail_admin_name);
+        TextView sportTypeTextView = findViewById(R.id.room_detail_sport_type);
+        TextView maxUserNumberTextView = findViewById(R.id.room_detail_user_number);
         TextView startTimeTextView = findViewById(R.id.room_detail_start_time);
         TextView endTimeTextView = findViewById(R.id.room_detail_end_time);
         TextView describeTextView = findViewById(R.id.room_detail_describe);
@@ -43,6 +39,7 @@ public class RoomDetail extends AppCompatActivity {
         // 获取传递的信息
         Intent intent = getIntent();
         String roomName = intent.getStringExtra("room_name");
+        String roomAdminName = intent.getStringExtra("room_admin_name");
         String sportType = intent.getStringExtra("sport_type");
         String currentUserNumber = intent.getStringExtra("current_user_number");
         String maxUserNumber = intent.getStringExtra("max_user_number");
@@ -54,6 +51,7 @@ public class RoomDetail extends AppCompatActivity {
 
         // 将信息显示在相应的TextView中
         roomNameTextView.setText(roomName);
+        roomAdminNameTextView.setText(roomAdminName);
         sportTypeTextView.setText(sportType);
         maxUserNumberTextView.setText(String.format("%s/%s", currentUserNumber, maxUserNumber));
         startTimeTextView.setText(startTime);

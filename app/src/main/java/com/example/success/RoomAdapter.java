@@ -1,16 +1,23 @@
 package com.example.success;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.success.entity.Room;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.Date;
 import java.util.List;
 
 public class RoomAdapter extends RecyclerView.Adapter<RoomAdapter.RoomViewHolder> {
@@ -18,8 +25,15 @@ public class RoomAdapter extends RecyclerView.Adapter<RoomAdapter.RoomViewHolder
     private List<Room> roomList;
     DatabaseInterface db = MainActivity.db;
 
+    private enum RoomStatus {
+        PREPARING,   // 准备开始
+        ONGOING,     // 正在进行
+        FINISHED     // 已经结束
+    }
+
     public RoomAdapter(List<Room> roomList) {
         this.roomList = roomList;
+        sortRooms();  // 对房间按开始时间排序
     }
 
     @NonNull
@@ -38,12 +52,16 @@ public class RoomAdapter extends RecyclerView.Adapter<RoomAdapter.RoomViewHolder
         holder.roomStartTime.setText(String.valueOf(room.getStartTime()));
         holder.roomEndTime.setText(String.valueOf(room.getEndTime()));
 
+        RoomStatus status = getRoomStatus(room);
+        setRoomStatusColor(holder.itemView, status);
+
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(view.getContext(), RoomDetail.class);
                 intent.putExtra("room_id", room.getId());
                 intent.putExtra("room_name", room.getRoomName());
+                intent.putExtra("room_admin_name", String.valueOf(room.getJoinUsers().get(0).getName()));
                 intent.putExtra("sport_type", String.valueOf(room.getSportType()));
                 intent.putExtra("current_user_number", String.valueOf(db.getAllUserInRoom(room.getId()).size()));
                 intent.putExtra("max_user_number", String.valueOf(room.getMaxUserNumber()));
@@ -61,6 +79,58 @@ public class RoomAdapter extends RecyclerView.Adapter<RoomAdapter.RoomViewHolder
     public int getItemCount() {
         return roomList.size();
     }
+
+    private void sortRooms() {
+        Collections.sort(roomList, new Comparator<Room>() {
+            @Override
+            public int compare(Room room1, Room room2) {
+                return room1.getStartTime().compareTo(room2.getStartTime());
+            }
+        });
+    }
+
+    private RoomStatus getRoomStatus(Room room) {
+        Date currentDate = new Date();
+        Date startTime = parseDateString(room.getStartTime());
+        Date endTime = parseDateString(room.getEndTime());
+
+        if (startTime.after(currentDate)) {
+            return RoomStatus.PREPARING;  // 准备开始
+        } else if (endTime.after(currentDate)) {
+            return RoomStatus.ONGOING;  // 正在进行
+        } else {
+            return RoomStatus.FINISHED;  // 已经结束
+        }
+    }
+
+    private Date parseDateString(String dateString) {
+        try {
+            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+            return dateFormat.parse(dateString);
+        } catch (ParseException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    // 根据房间状态设置不同背景颜色
+    private void setRoomStatusColor(View itemView, RoomStatus status) {
+        switch (status) {
+            case PREPARING:
+                itemView.setBackgroundColor(Color.parseColor("#FFFFCC"));
+                break;
+            case ONGOING:
+                itemView.setBackgroundColor(Color.parseColor("#CCD9FF"));
+                break;
+            case FINISHED:
+                itemView.setBackgroundColor(Color.parseColor("#FFCCCC"));
+                break;
+            default:
+                itemView.setBackgroundColor(Color.parseColor("#0"));
+                break;
+        }
+    }
+
 
     public static class RoomViewHolder extends RecyclerView.ViewHolder {
         public TextView roomName;

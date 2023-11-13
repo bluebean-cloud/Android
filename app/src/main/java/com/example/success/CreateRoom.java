@@ -12,6 +12,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -27,8 +28,12 @@ import com.example.success.entity.User;
 import com.example.success.ui.room.RoomFragment;
 
 import java.sql.Time;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
+import java.util.Locale;
 
 public class CreateRoom extends AppCompatActivity {
 
@@ -37,6 +42,7 @@ public class CreateRoom extends AppCompatActivity {
     EditText maxUseNumber;
     EditText startTime;
     EditText endTime;
+    EditText rallyPosition;
     EditText roomDetail;
 
     DatabaseInterface db;
@@ -89,20 +95,62 @@ public class CreateRoom extends AppCompatActivity {
     }
 
     public void saveRoom(View view) {
+        // 获取用户输入的房间信息
+        String roomNameText = roomName.getText().toString();
+        String sportTypeText = sportType.getText().toString();
+        String maxUserNumberText = maxUseNumber.getText().toString();
+        String startTimeText = startTime.getText().toString();
+        String endTimeText = endTime.getText().toString();
+        String roomDetailText = roomDetail.getText().toString();
 
+        // 检查是否有空项
+        if (TextUtils.isEmpty(roomNameText) || TextUtils.isEmpty(sportTypeText) ||
+                TextUtils.isEmpty(maxUserNumberText) || TextUtils.isEmpty(startTimeText) ||
+                TextUtils.isEmpty(endTimeText) || TextUtils.isEmpty(roomDetailText)) {
+            Toast.makeText(this, "请填写所有房间信息", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        // 检查开始时间是否早于结束时间
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.getDefault());
+        try {
+            Date startDate = sdf.parse(startTimeText);
+            Date endDate = sdf.parse(endTimeText);
+
+            if (startDate.after(endDate)) {
+                Toast.makeText(this, "结束时间应晚于开始时间", Toast.LENGTH_SHORT).show();
+                return;
+            }
+        } catch (ParseException e) {
+            e.printStackTrace();
+            Toast.makeText(this, "日期格式错误", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        // 检查开始时间是否晚于当前时间
+        Date currentDate = new Date();
+        try {
+            Date startDate = sdf.parse(startTimeText);
+
+            if (startDate.before(currentDate)) {
+                Toast.makeText(this, "开始时间应晚于当前时间", Toast.LENGTH_SHORT).show();
+                return;
+            }
+        } catch (ParseException e) {
+            e.printStackTrace();
+            Toast.makeText(this, "日期格式错误", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        // 保存房间信息
         User currentUser = CurrentUser.getUser();
-        String roomName = this.roomName.getText().toString();
-        String sportType = this.sportType.getText().toString();
-        String maxUseNumber = this.maxUseNumber.getText().toString();
-        String startTime = this.startTime.getText().toString();
-        String endTime = this.endTime.getText().toString();
-        String roomDetail = this.roomDetail.getText().toString();
-
-        db.addRoom(currentUser, maxUseNumber, roomName, sportType, roomDetail, startTime, endTime);
+        db.addRoom(currentUser, maxUserNumberText, roomNameText, sportTypeText, roomDetailText, startTimeText, endTimeText);
         Toast.makeText(this, "保存成功！", Toast.LENGTH_SHORT).show();
 
+        // 结束当前 Activity
         finish();
     }
+
 
 
     private void showCustomInputDialog() {
