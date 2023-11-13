@@ -16,8 +16,8 @@ import com.example.success.entity.KnowledgeLabel;
 import com.example.success.entity.KnowledgeTask;
 import com.example.success.entity.Label;
 import com.example.success.entity.Room;
-import com.example.success.entity.RoomList;
 import com.example.success.entity.User;
+import com.example.success.entity.UserInRoom;
 import com.example.success.entity.Word;
 import com.example.success.entity.WordHistory;
 import com.example.success.entity.WordLabel;
@@ -31,8 +31,8 @@ import com.example.success.generatedDao.KnowledgeLabelDao;
 import com.example.success.generatedDao.KnowledgeTaskDao;
 import com.example.success.generatedDao.LabelDao;
 import com.example.success.generatedDao.RoomDao;
-import com.example.success.generatedDao.RoomListDao;
 import com.example.success.generatedDao.UserDao;
+import com.example.success.generatedDao.UserInRoomDao;
 import com.example.success.generatedDao.WordDao;
 import com.example.success.generatedDao.WordHistoryDao;
 import com.example.success.generatedDao.WordLabelDao;
@@ -55,8 +55,8 @@ public class DaoSession extends AbstractDaoSession {
     private final DaoConfig knowledgeTaskDaoConfig;
     private final DaoConfig labelDaoConfig;
     private final DaoConfig roomDaoConfig;
-    private final DaoConfig roomListDaoConfig;
     private final DaoConfig userDaoConfig;
+    private final DaoConfig userInRoomDaoConfig;
     private final DaoConfig wordDaoConfig;
     private final DaoConfig wordHistoryDaoConfig;
     private final DaoConfig wordLabelDaoConfig;
@@ -70,8 +70,8 @@ public class DaoSession extends AbstractDaoSession {
     private final KnowledgeTaskDao knowledgeTaskDao;
     private final LabelDao labelDao;
     private final RoomDao roomDao;
-    private final RoomListDao roomListDao;
     private final UserDao userDao;
+    private final UserInRoomDao userInRoomDao;
     private final WordDao wordDao;
     private final WordHistoryDao wordHistoryDao;
     private final WordLabelDao wordLabelDao;
@@ -105,11 +105,11 @@ public class DaoSession extends AbstractDaoSession {
         roomDaoConfig = daoConfigMap.get(RoomDao.class).clone();
         roomDaoConfig.initIdentityScope(type);
 
-        roomListDaoConfig = daoConfigMap.get(RoomListDao.class).clone();
-        roomListDaoConfig.initIdentityScope(type);
-
         userDaoConfig = daoConfigMap.get(UserDao.class).clone();
         userDaoConfig.initIdentityScope(type);
+
+        userInRoomDaoConfig = daoConfigMap.get(UserInRoomDao.class).clone();
+        userInRoomDaoConfig.initIdentityScope(type);
 
         wordDaoConfig = daoConfigMap.get(WordDao.class).clone();
         wordDaoConfig.initIdentityScope(type);
@@ -131,8 +131,8 @@ public class DaoSession extends AbstractDaoSession {
         knowledgeTaskDao = new KnowledgeTaskDao(knowledgeTaskDaoConfig, this);
         labelDao = new LabelDao(labelDaoConfig, this);
         roomDao = new RoomDao(roomDaoConfig, this);
-        roomListDao = new RoomListDao(roomListDaoConfig, this);
         userDao = new UserDao(userDaoConfig, this);
+        userInRoomDao = new UserInRoomDao(userInRoomDaoConfig, this);
         wordDao = new WordDao(wordDaoConfig, this);
         wordHistoryDao = new WordHistoryDao(wordHistoryDaoConfig, this);
         wordLabelDao = new WordLabelDao(wordLabelDaoConfig, this);
@@ -146,8 +146,8 @@ public class DaoSession extends AbstractDaoSession {
         registerDao(KnowledgeTask.class, knowledgeTaskDao);
         registerDao(Label.class, labelDao);
         registerDao(Room.class, roomDao);
-        registerDao(RoomList.class, roomListDao);
         registerDao(User.class, userDao);
+        registerDao(UserInRoom.class, userInRoomDao);
         registerDao(Word.class, wordDao);
         registerDao(WordHistory.class, wordHistoryDao);
         registerDao(WordLabel.class, wordLabelDao);
@@ -163,8 +163,8 @@ public class DaoSession extends AbstractDaoSession {
         knowledgeTaskDaoConfig.clearIdentityScope();
         labelDaoConfig.clearIdentityScope();
         roomDaoConfig.clearIdentityScope();
-        roomListDaoConfig.clearIdentityScope();
         userDaoConfig.clearIdentityScope();
+        userInRoomDaoConfig.clearIdentityScope();
         wordDaoConfig.clearIdentityScope();
         wordHistoryDaoConfig.clearIdentityScope();
         wordLabelDaoConfig.clearIdentityScope();
@@ -203,12 +203,12 @@ public class DaoSession extends AbstractDaoSession {
         return roomDao;
     }
 
-    public RoomListDao getRoomListDao() {
-        return roomListDao;
-    }
-
     public UserDao getUserDao() {
         return userDao;
+    }
+
+    public UserInRoomDao getUserInRoomDao() {
+        return userInRoomDao;
     }
 
     public WordDao getWordDao() {

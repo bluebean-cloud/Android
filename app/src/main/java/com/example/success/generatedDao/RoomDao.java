@@ -1,6 +1,5 @@
 package com.example.success.generatedDao;
 
-import java.util.List;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteStatement;
 
@@ -9,8 +8,6 @@ import org.greenrobot.greendao.Property;
 import org.greenrobot.greendao.internal.DaoConfig;
 import org.greenrobot.greendao.database.Database;
 import org.greenrobot.greendao.database.DatabaseStatement;
-import org.greenrobot.greendao.query.Query;
-import org.greenrobot.greendao.query.QueryBuilder;
 
 import com.example.success.entity.Room;
 
@@ -32,13 +29,13 @@ public class RoomDao extends AbstractDao<Room, Long> {
         public final static Property RoomName = new Property(2, String.class, "roomName", false, "ROOM_NAME");
         public final static Property SportType = new Property(3, String.class, "sportType", false, "SPORT_TYPE");
         public final static Property RoomDescribe = new Property(4, String.class, "roomDescribe", false, "ROOM_DESCRIBE");
-        public final static Property StartTime = new Property(5, String.class, "startTime", false, "START_TIME");
-        public final static Property EndTime = new Property(6, String.class, "endTime", false, "END_TIME");
+        public final static Property Contact = new Property(5, String.class, "contact", false, "CONTACT");
+        public final static Property StartTime = new Property(6, String.class, "startTime", false, "START_TIME");
+        public final static Property EndTime = new Property(7, String.class, "endTime", false, "END_TIME");
     }
 
     private DaoSession daoSession;
 
-    private Query<Room> roomList_RoomListQuery;
 
     public RoomDao(DaoConfig config) {
         super(config);
@@ -58,8 +55,9 @@ public class RoomDao extends AbstractDao<Room, Long> {
                 "\"ROOM_NAME\" TEXT," + // 2: roomName
                 "\"SPORT_TYPE\" TEXT," + // 3: sportType
                 "\"ROOM_DESCRIBE\" TEXT," + // 4: roomDescribe
-                "\"START_TIME\" TEXT," + // 5: startTime
-                "\"END_TIME\" TEXT);"); // 6: endTime
+                "\"CONTACT\" TEXT," + // 5: contact
+                "\"START_TIME\" TEXT," + // 6: startTime
+                "\"END_TIME\" TEXT);"); // 7: endTime
     }
 
     /** Drops the underlying database table. */
@@ -93,14 +91,19 @@ public class RoomDao extends AbstractDao<Room, Long> {
             stmt.bindString(5, roomDescribe);
         }
  
+        String contact = entity.getContact();
+        if (contact != null) {
+            stmt.bindString(6, contact);
+        }
+ 
         String startTime = entity.getStartTime();
         if (startTime != null) {
-            stmt.bindString(6, startTime);
+            stmt.bindString(7, startTime);
         }
  
         String endTime = entity.getEndTime();
         if (endTime != null) {
-            stmt.bindString(7, endTime);
+            stmt.bindString(8, endTime);
         }
     }
 
@@ -129,14 +132,19 @@ public class RoomDao extends AbstractDao<Room, Long> {
             stmt.bindString(5, roomDescribe);
         }
  
+        String contact = entity.getContact();
+        if (contact != null) {
+            stmt.bindString(6, contact);
+        }
+ 
         String startTime = entity.getStartTime();
         if (startTime != null) {
-            stmt.bindString(6, startTime);
+            stmt.bindString(7, startTime);
         }
  
         String endTime = entity.getEndTime();
         if (endTime != null) {
-            stmt.bindString(7, endTime);
+            stmt.bindString(8, endTime);
         }
     }
 
@@ -159,8 +167,9 @@ public class RoomDao extends AbstractDao<Room, Long> {
             cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2), // roomName
             cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3), // sportType
             cursor.isNull(offset + 4) ? null : cursor.getString(offset + 4), // roomDescribe
-            cursor.isNull(offset + 5) ? null : cursor.getString(offset + 5), // startTime
-            cursor.isNull(offset + 6) ? null : cursor.getString(offset + 6) // endTime
+            cursor.isNull(offset + 5) ? null : cursor.getString(offset + 5), // contact
+            cursor.isNull(offset + 6) ? null : cursor.getString(offset + 6), // startTime
+            cursor.isNull(offset + 7) ? null : cursor.getString(offset + 7) // endTime
         );
         return entity;
     }
@@ -172,8 +181,9 @@ public class RoomDao extends AbstractDao<Room, Long> {
         entity.setRoomName(cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2));
         entity.setSportType(cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3));
         entity.setRoomDescribe(cursor.isNull(offset + 4) ? null : cursor.getString(offset + 4));
-        entity.setStartTime(cursor.isNull(offset + 5) ? null : cursor.getString(offset + 5));
-        entity.setEndTime(cursor.isNull(offset + 6) ? null : cursor.getString(offset + 6));
+        entity.setContact(cursor.isNull(offset + 5) ? null : cursor.getString(offset + 5));
+        entity.setStartTime(cursor.isNull(offset + 6) ? null : cursor.getString(offset + 6));
+        entity.setEndTime(cursor.isNull(offset + 7) ? null : cursor.getString(offset + 7));
      }
     
     @Override
@@ -201,18 +211,4 @@ public class RoomDao extends AbstractDao<Room, Long> {
         return true;
     }
     
-    /** Internal query to resolve the "roomList" to-many relationship of RoomList. */
-    public List<Room> _queryRoomList_RoomList(Long id) {
-        synchronized (this) {
-            if (roomList_RoomListQuery == null) {
-                QueryBuilder<Room> queryBuilder = queryBuilder();
-                queryBuilder.where(Properties.Id.eq(null));
-                roomList_RoomListQuery = queryBuilder.build();
-            }
-        }
-        Query<Room> query = roomList_RoomListQuery.forCurrentThread();
-        query.setParameter(0, id);
-        return query.list();
-    }
-
 }

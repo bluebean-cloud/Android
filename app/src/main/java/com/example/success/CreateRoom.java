@@ -30,16 +30,18 @@ import java.util.Calendar;
 
 public class CreateRoom extends AppCompatActivity {
 
-    User currentUser;
     EditText roomName;
     EditText sportType;
     EditText maxUseNumber;
     EditText startTime;
     EditText endTime;
     EditText roomDetail;
+
+    DatabaseInterface db;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        currentUser = CurrentUser.getUser();
+
+        db = MainActivity.db;
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_room);
@@ -52,10 +54,6 @@ public class CreateRoom extends AppCompatActivity {
         chooseRoomType();
         setTime(startTime);
         setTime(endTime);
-    }
-
-    public void finishCreateRoom(View view) {
-        finish();
     }
 
     public void chooseRoomType() {
@@ -160,7 +158,7 @@ public class CreateRoom extends AppCompatActivity {
 
     public void saveRoom(View view) {
 
-        User currentUser = this.currentUser;
+        User currentUser = CurrentUser.getUser();
         String roomName = this.roomName.getText().toString();
         String sportType = this.sportType.getText().toString();
         String maxUseNumber = this.maxUseNumber.getText().toString();
@@ -168,46 +166,9 @@ public class CreateRoom extends AppCompatActivity {
         String endTime = this.endTime.getText().toString();
         String roomDetail = this.roomDetail.getText().toString();
 
-        Intent intent = getIntent();
-//        if (intent.getBooleanExtra("fromEdit", false)) {
-//            //TODO: 编辑知识
-//            Intent ret = new Intent();
-//
-//            result = db.updateKnowledge(MainActivity.name, oldContent, content, title, bitmap, label);
-//            if(result == 0) {
-//                Toast.makeText(this, "已有相同内容，修改失败！", Toast.LENGTH_SHORT).show();
-//            } else if (result == 2) {
-//                Toast.makeText(this, "标题不能为空", Toast.LENGTH_SHORT).show();
-//            } else if (result == 3) {
-//                Toast.makeText(this, "知识点内容不能为空", Toast.LENGTH_SHORT).show();
-//            } else {
-//                Knowledge knowledge = db.getKnowledgeByContent(MainActivity.name, content);
-//                db.insertKnowledgeBlank(knowledge, blanks);
-//                MainActivity.updateData();
-//                Toast.makeText(this, "修改成功！", Toast.LENGTH_SHORT).show();
-//                setResult(RESULT_OK, ret);
-//                finish();
-//            }
-//        } else {
-//            result = db.insertKnowledge(MainActivity.name, content, title, bitmap);
-//            if(result == 0) {
-//                Toast.makeText(this, "已有相同内容，添加失败！", Toast.LENGTH_SHORT).show();
-//            } else if (result == 3) {
-//                Toast.makeText(this, "标题不能为空", Toast.LENGTH_SHORT).show();
-//            } else if (result == 4) {
-//                Toast.makeText(this, "知识点内容不能为空", Toast.LENGTH_SHORT).show();
-//            } else {
-//                Knowledge knowledge = db.getKnowledgeByContent(MainActivity.name, content);
-//                db.knowledgeAddLabel(knowledge, label);
-//                db.insertKnowledgeBlank(knowledge, blanks);
-//                MainActivity.updateData();
-//                Toast.makeText(this, "保存成功！", Toast.LENGTH_SHORT).show();
-//                finish();
-//            }
-
-//        }
-
-
+        db.addRoom(currentUser, maxUseNumber, roomName, sportType, roomDetail, startTime, endTime);
+        Toast.makeText(this, "保存成功！", Toast.LENGTH_SHORT).show();
+        finish();
     }
 
 }

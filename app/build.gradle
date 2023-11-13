@@ -36,7 +36,7 @@ android {
     }
 
     greendao {
-        schemaVersion 14 //数据库版本号
+        schemaVersion 18 //数据库版本号
         daoPackage 'com.example.success.generatedDao'// 设置DaoMaster、DaoSession、Dao 包名
         targetGenDir 'src/main/java'//设置DaoMaster、DaoSession、Dao目录,请注意，这里路径用/不要用.
         generateTests false //设置为true以自动生成单元测试。

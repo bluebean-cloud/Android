@@ -13,6 +13,7 @@ import org.greenrobot.greendao.query.Query;
 import org.greenrobot.greendao.query.QueryBuilder;
 
 import com.example.success.entity.FriendShip;
+import com.example.success.entity.UserInRoom;
 
 import com.example.success.entity.User;
 
@@ -195,16 +196,17 @@ public class UserDao extends AbstractDao<User, Long> {
     }
     
     /** Internal query to resolve the "joinUsers" to-many relationship of Room. */
-    public List<User> _queryRoom_JoinUsers(Long id) {
+    public List<User> _queryRoom_JoinUsers(Long roomId) {
         synchronized (this) {
             if (room_JoinUsersQuery == null) {
                 QueryBuilder<User> queryBuilder = queryBuilder();
-                queryBuilder.where(Properties.Id.eq(null));
+                queryBuilder.join(UserInRoom.class, UserInRoomDao.Properties.UserId)
+                    .where(UserInRoomDao.Properties.RoomId.eq(roomId));
                 room_JoinUsersQuery = queryBuilder.build();
             }
         }
         Query<User> query = room_JoinUsersQuery.forCurrentThread();
-        query.setParameter(0, id);
+        query.setParameter(0, roomId);
         return query.list();
     }
 

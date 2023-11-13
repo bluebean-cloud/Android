@@ -5,6 +5,7 @@ import org.greenrobot.greendao.annotation.Convert;
 import org.greenrobot.greendao.annotation.Entity;
 import org.greenrobot.greendao.annotation.Generated;
 import org.greenrobot.greendao.annotation.Id;
+import org.greenrobot.greendao.annotation.JoinEntity;
 import org.greenrobot.greendao.annotation.ToMany;
 
 import java.sql.Time;
@@ -23,43 +24,36 @@ public class Room {
      */
     @Id(autoincrement = true)
     private Long id;
-    @ToMany(referencedJoinProperty = "id")
+    @ToMany
+    @JoinEntity(entity = UserInRoom.class,
+            sourceProperty = "roomId",
+            targetProperty = "userId")
     private List<User> joinUsers;
     private int maxUserNumber;  //人数上限
     private String roomName;    //房间名字
     private String sportType;
     private String roomDescribe;    //房间描述
+    private String contact;     //联系方式
     private String startTime;
     private String endTime;
-    /** Used to resolve relations */
     /** Used to resolve relations */
     @Generated(hash = 2040040024)
     private transient DaoSession daoSession;
     /** Used for active entity operations. */
     @Generated(hash = 740313876)
     private transient RoomDao myDao;
-    @Generated(hash = 1342982417)
+    @Generated(hash = 1963130574)
     public Room(Long id, int maxUserNumber, String roomName, String sportType,
-            String roomDescribe, String startTime, String endTime) {
+            String roomDescribe, String contact, String startTime, String endTime) {
         this.id = id;
         this.maxUserNumber = maxUserNumber;
         this.roomName = roomName;
         this.sportType = sportType;
         this.roomDescribe = roomDescribe;
+        this.contact = contact;
         this.startTime = startTime;
         this.endTime = endTime;
     }
-
-    public Room(int maxUserNumber, String roomName, String sportType,
-                String roomDescribe, String startTime, String endTime) {
-        this.maxUserNumber = maxUserNumber;
-        this.roomName = roomName;
-        this.sportType = sportType;
-        this.roomDescribe = roomDescribe;
-        this.startTime = startTime;
-        this.endTime = endTime;
-    }
-
     @Generated(hash = 703125385)
     public Room() {
     }
@@ -92,6 +86,12 @@ public class Room {
     }
     public void setRoomDescribe(String roomDescribe) {
         this.roomDescribe = roomDescribe;
+    }
+    public String getContact() {
+        return this.contact;
+    }
+    public void setContact(String contact) {
+        this.contact = contact;
     }
     public String getStartTime() {
         return this.startTime;
@@ -170,4 +170,5 @@ public class Room {
         this.daoSession = daoSession;
         myDao = daoSession != null ? daoSession.getRoomDao() : null;
     }
+
 }
