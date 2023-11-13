@@ -78,5 +78,21 @@ public class RoomFragment extends Fragment {
 
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        View root = binding.getRoot();
+
+        // 初始化房间列表（roomList）的数据
+
+        recyclerView = root.findViewById(R.id.room_list);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+
+        roomList = db.getAllRoom();
+
+        roomAdapter = new RoomAdapter(roomList);
+        recyclerView.setAdapter(roomAdapter);
+    }
 }
 
