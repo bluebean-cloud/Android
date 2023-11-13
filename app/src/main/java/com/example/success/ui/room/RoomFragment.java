@@ -32,7 +32,7 @@ public class RoomFragment extends Fragment {
 
     private FragmentRoomBinding binding;
     private RecyclerView recyclerView;
-    private RoomAdapter roomAdapter;
+    public RoomAdapter roomAdapter;
     DatabaseInterface db = MainActivity.db;
     List<Room> roomList = new ArrayList<>();
 
@@ -48,9 +48,7 @@ public class RoomFragment extends Fragment {
 
         recyclerView = root.findViewById(R.id.room_list);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-
         roomList = db.getAllRoom();
-
         roomAdapter = new RoomAdapter(roomList);
         recyclerView.setAdapter(roomAdapter);
 
@@ -94,5 +92,6 @@ public class RoomFragment extends Fragment {
         roomAdapter = new RoomAdapter(roomList);
         recyclerView.setAdapter(roomAdapter);
     }
+
 }
 

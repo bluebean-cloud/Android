@@ -1912,6 +1912,15 @@ public class DatabaseInterface {
         return 1;
     }
 
+    public void deleteRoom(Long roomId){
+        Room room = getRoomById(roomId);
+        List<User> userList = getAllUserInRoom(roomId);
+        for (User user : userList) {
+            quitRoom(roomId, user.getId());
+        }
+        daoSession.delete(room);
+    }
+
 
     public List<Room> getAllRoom() {
         QueryBuilder<Room> queryBuilder = daoSession.queryBuilder(Room.class);

@@ -1,6 +1,7 @@
 package com.example.success;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
 
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
@@ -23,6 +24,7 @@ import android.widget.Toast;
 
 import com.example.success.entity.Knowledge;
 import com.example.success.entity.User;
+import com.example.success.ui.room.RoomFragment;
 
 import java.sql.Time;
 import java.util.ArrayList;
@@ -85,6 +87,23 @@ public class CreateRoom extends AppCompatActivity {
             }
         });
     }
+
+    public void saveRoom(View view) {
+
+        User currentUser = CurrentUser.getUser();
+        String roomName = this.roomName.getText().toString();
+        String sportType = this.sportType.getText().toString();
+        String maxUseNumber = this.maxUseNumber.getText().toString();
+        String startTime = this.startTime.getText().toString();
+        String endTime = this.endTime.getText().toString();
+        String roomDetail = this.roomDetail.getText().toString();
+
+        db.addRoom(currentUser, maxUseNumber, roomName, sportType, roomDetail, startTime, endTime);
+        Toast.makeText(this, "保存成功！", Toast.LENGTH_SHORT).show();
+
+        finish();
+    }
+
 
     private void showCustomInputDialog() {
         // 创建一个对话框，包含一个 EditText 来让用户输入自定义内容
@@ -155,20 +174,4 @@ public class CreateRoom extends AppCompatActivity {
             }
         });
     }
-
-    public void saveRoom(View view) {
-
-        User currentUser = CurrentUser.getUser();
-        String roomName = this.roomName.getText().toString();
-        String sportType = this.sportType.getText().toString();
-        String maxUseNumber = this.maxUseNumber.getText().toString();
-        String startTime = this.startTime.getText().toString();
-        String endTime = this.endTime.getText().toString();
-        String roomDetail = this.roomDetail.getText().toString();
-
-        db.addRoom(currentUser, maxUseNumber, roomName, sportType, roomDetail, startTime, endTime);
-        Toast.makeText(this, "保存成功！", Toast.LENGTH_SHORT).show();
-        finish();
-    }
-
 }

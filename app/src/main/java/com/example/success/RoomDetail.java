@@ -13,6 +13,7 @@ import android.widget.Toast;
 
 import com.example.success.entity.Room;
 import com.example.success.entity.User;
+import com.example.success.ui.room.RoomFragment;
 
 import java.util.List;
 import java.util.Objects;
@@ -60,8 +61,12 @@ public class RoomDetail extends AppCompatActivity {
         describeTextView.setText(describe);
 
         Button joinOrQuitRoomTextView = findViewById(R.id.join_room);
-        if(db.isInRoom(currentUserId, currentUserId)){
-            joinOrQuitRoomTextView.setText("退出房间");
+        if(db.isInRoom(currentRoomId, currentUserId)){
+            if(Objects.equals(db.getAllUserInRoom(currentRoomId).get(0).getId(), currentUserId)) {
+                joinOrQuitRoomTextView.setText("解散房间");
+            } else {
+                joinOrQuitRoomTextView.setText("退出房间");
+            }
         }
         else {
             joinOrQuitRoomTextView.setText("加入房间");
@@ -69,8 +74,12 @@ public class RoomDetail extends AppCompatActivity {
     }
 
     public void joinOrQuitRoom(View view) {
-        if (db.isInRoom(currentUserId, currentUserId)) {
-            dialog.setMessage("确认退出？");
+        if (db.isInRoom(currentRoomId, currentUserId)) {
+            if(Objects.equals(db.getAllUserInRoom(currentRoomId).get(0).getId(), currentUserId)) {
+                dialog.setMessage("确认解散？");
+            } else {
+                dialog.setMessage("确认退出？");
+            }
         } else {
             dialog.setMessage("确认加入？");
         }
@@ -83,16 +92,21 @@ public class RoomDetail extends AppCompatActivity {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 if (db.isInRoom(currentUserId, currentUserId)) {
-                    // 加入房间
-                    Toast.makeText(RoomDetail.this, "已退出房间", Toast.LENGTH_LONG).show();
-                    db.quitRoom(currentRoomId, currentUserId);
+                    if(Objects.equals(db.getAllUserInRoom(currentRoomId).get(0).getId(), currentUserId)) {
+                        Toast.makeText(RoomDetail.this, "已解散房间", Toast.LENGTH_LONG).show();
+                        db.deleteRoom(currentRoomId);
+                    } else {
+                        Toast.makeText(RoomDetail.this, "已退出房间", Toast.LENGTH_LONG).show();
+                        db.quitRoom(currentRoomId, currentUserId);
+                    }
+
                 } else {
-                    // 退出房间
                     Toast.makeText(RoomDetail.this, "已加入房间", Toast.LENGTH_LONG).show();
                     db.joinRoom(currentRoomId, currentUserId);
                 }
                 dialog.dismiss();
                 finish();
+
             }
         });
 
