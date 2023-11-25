@@ -14,6 +14,7 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.success.CalorieDetection;
 import com.example.success.CreateRoom;
 import com.example.success.DatabaseInterface;
 import com.example.success.MainActivity;
@@ -69,7 +70,7 @@ public class RoomFragment extends Fragment {
         createRoom.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), CreateRoom.class);
+                Intent intent = new Intent(getActivity(), CalorieDetection.class);
                 startActivity(intent);
             }
         });

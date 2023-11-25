@@ -24,6 +24,9 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
+            android:name=".CalorieDetection"
+            android:exported="false" />
+        <activity
             android:name=".RoomDetail"
             android:exported="false" />
         <activity
