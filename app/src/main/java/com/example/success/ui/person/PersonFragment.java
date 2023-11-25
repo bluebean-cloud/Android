@@ -48,13 +48,13 @@ import com.example.success.DatabaseInterface;
 import com.example.success.Home;
 import com.example.success.MainActivity;
 import com.example.success.R;
-import com.example.success.databinding.FragmentNotificationsBinding;
+import com.example.success.databinding.FragmentRoomBinding;
 import com.example.success.databinding.FragmentPersonBinding;
 import com.example.success.entity.User;
 import com.example.success.showFriends;
 import com.example.success.takePhoto;
 import com.example.success.ui.dashboard.DashboardViewModel;
-import com.example.success.ui.notifications.NotificationsViewModel;
+import com.example.success.ui.room.RoomViewModel;
 import com.example.success.view.CurveView;
 
 import org.w3c.dom.Text;
