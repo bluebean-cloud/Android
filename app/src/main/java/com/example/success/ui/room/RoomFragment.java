@@ -14,6 +14,7 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.success.CalorieDetection;
 import com.example.success.CreateRoom;
 import com.example.success.DatabaseInterface;
 import com.example.success.MainActivity;

@@ -42,6 +42,7 @@ import android.widget.Toast;
 
 import com.example.success.AddFriend;
 import com.example.success.AlarmReceiver;
+import com.example.success.CalorieDetection;
 import com.example.success.ChangePass;
 import com.example.success.CurrentUser;
 import com.example.success.DatabaseInterface;
@@ -176,6 +177,11 @@ public class PersonFragment extends Fragment {
         getActivity().findViewById(R.id.person_btn_logout).setOnClickListener(view -> {
             Intent intent = new Intent(getActivity(), Home.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            startActivity(intent);
+        });
+
+        getActivity().findViewById(R.id.calorie_detect).setOnClickListener(view -> {
+            Intent intent = new Intent(getActivity(), CalorieDetection.class);
             startActivity(intent);
         });
 
