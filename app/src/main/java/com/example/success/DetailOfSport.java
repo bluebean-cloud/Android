@@ -9,6 +9,8 @@ import android.os.Bundle;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.util.Objects;
+
 public class DetailOfSport extends Activity {
     ImageView imageViewUserHeaderImageInSportDetail;
     ImageView imageViewSportDetail1;
@@ -46,7 +48,9 @@ public class DetailOfSport extends Activity {
         //设置参数
         Intent intent = getIntent();
         //用户头像
-
+        byte[] array = CurrentUser.getUser().getUserPhoto();
+        Bitmap bitHeader = BitmapFactory.decodeByteArray(array, 0, array.length);
+        imageViewUserHeaderImageInSportDetail.setImageBitmap(bitHeader);
         //用户名
         textViewUserIdInDetail.setText(intent.getStringExtra("textViewUserIdInDetail"));
         //创建时间
