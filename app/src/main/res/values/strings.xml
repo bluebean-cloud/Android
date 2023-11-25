@@ -19,4 +19,6 @@
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
     <string name="title_activity_change_pass">ChangePass</string>
     <string name="title_square">square</string>
+    <string name="logout">切换账号</string>
+    <string name="sure">确定选择</string>
 </resources>

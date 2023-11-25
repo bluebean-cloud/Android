@@ -3,20 +3,33 @@ package com.example.success.ui.person;
 import static android.app.PendingIntent.FLAG_MUTABLE;
 import static android.content.Context.ALARM_SERVICE;
 
+import androidx.activity.result.ActivityResult;
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AlertDialog;
+import androidx.fragment.app.FragmentActivity;
 import androidx.lifecycle.ViewModelProvider;
 
+import android.app.Activity;
 import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.app.TimePickerDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import android.provider.ContactsContract;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -32,15 +45,25 @@ import com.example.success.AlarmReceiver;
 import com.example.success.ChangePass;
 import com.example.success.CurrentUser;
 import com.example.success.DatabaseInterface;
+import com.example.success.Home;
 import com.example.success.MainActivity;
 import com.example.success.R;
 import com.example.success.databinding.FragmentNotificationsBinding;
 import com.example.success.databinding.FragmentPersonBinding;
+import com.example.success.entity.User;
 import com.example.success.showFriends;
+import com.example.success.takePhoto;
 import com.example.success.ui.dashboard.DashboardViewModel;
 import com.example.success.ui.notifications.NotificationsViewModel;
 import com.example.success.view.CurveView;
 
+import org.w3c.dom.Text;
+
+import java.io.ByteArrayOutputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
+import java.nio.BufferUnderflowException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
@@ -58,6 +81,11 @@ public class PersonFragment extends Fragment {
 
     private PersonViewModel mViewModel;
     private FragmentPersonBinding binding;
+    private ActivityResultLauncher<Intent> register;
+
+    private final DatabaseInterface db = MainActivity.db;
+
+    private final User currentUser = CurrentUser.getUser();
 
     public static PersonFragment newInstance() {
         return new PersonFragment();
@@ -66,11 +94,11 @@ public class PersonFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        DatabaseInterface db = MainActivity.db;
         mViewModel = new ViewModelProvider(this).get(PersonViewModel.class);
         binding = FragmentPersonBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
         alarmManager = (AlarmManager) getActivity().getSystemService(ALARM_SERVICE);
+
 //        final CurveView curveView = binding.curveView;;
 //        //  读入近一周的背诵量
 //
@@ -141,6 +169,12 @@ public class PersonFragment extends Fragment {
             }
         });
 
+        //切换账号, 注意不设置 action 以免引起 Home 检查自动登录
+        getActivity().findViewById(R.id.person_btn_logout).setOnClickListener(view -> {
+            Intent intent = new Intent(getActivity(), Home.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            startActivity(intent);
+        });
 
     }
 
@@ -185,11 +219,11 @@ public class PersonFragment extends Fragment {
                 AlarmManager am = (AlarmManager) getActivity().getSystemService(ALARM_SERVICE);
                 //**********注意！！下面的两个根据实际需求任选其一即可*********
 
-                /**
-                 * 重复提醒
-                 * 第一个参数是警报类型；下面有介绍
-                 * 第二个参数网上说法不一，很多都是说的是延迟多少毫秒执行这个闹钟，但是我用的刷了MIUI的三星手机的实际效果是与单次提醒的参数一样，即设置的13点25分的时间点毫秒值
-                 * 第三个参数是重复周期，也就是下次提醒的间隔 毫秒值 我这里是一天后提醒
+                /*
+                  重复提醒
+                  第一个参数是警报类型；下面有介绍
+                  第二个参数网上说法不一，很多都是说的是延迟多少毫秒执行这个闹钟，但是我用的刷了MIUI的三星手机的实际效果是与单次提醒的参数一样，即设置的13点25分的时间点毫秒值
+                  第三个参数是重复周期，也就是下次提醒的间隔 毫秒值 我这里是一天后提醒
                  */
                 am.setRepeating(AlarmManager.RTC_WAKEUP, mCalendar.getTimeInMillis(), (1000 * 60 * 60 * 24), pi);
                 Toast.makeText(getActivity(), "提醒设置完成, 时间: " + mCalendar.get(Calendar.HOUR_OF_DAY)
@@ -224,6 +258,8 @@ public class PersonFragment extends Fragment {
                 switch (which) {
                     case UPLOAD_PORTRAIT: // 修改头像
                        //TODO：修改头像
+                        Intent intentToTakePhoto = new Intent(getActivity(), takePhoto.class);
+                        register.launch(intentToTakePhoto);
                         break;
                     case CHANGE_PASS:
                         Intent intent = new Intent(getActivity(), ChangePass.class);
@@ -238,4 +274,36 @@ public class PersonFragment extends Fragment {
         builder.create().show();
     }
 
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        register = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
+            if (result != null && result.getResultCode() == Activity.RESULT_OK && result.getData() != null) {
+                Uri imgUri = result.getData().getData();
+                if (imgUri != null) {
+                    try {
+                        InputStream inputStream = getContext().getContentResolver().openInputStream(imgUri);
+                        Bitmap bitmap = BitmapFactory.decodeStream(inputStream);
+                        db.insertUserPhoto(currentUser.getName(), bitmap);
+                        ByteArrayOutputStream stream = new ByteArrayOutputStream();
+                        bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
+                        currentUser.setUserPhoto(stream.toByteArray());
+                        inputStream.close();
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
+                }
+            }
+        });
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        TextView userName = (TextView) (getActivity().findViewById(R.id.userName_person));
+        userName.setText(currentUser.getName());
+        ImageView imageView = (ImageView) (getActivity().findViewById(R.id.userPortrait));
+        if(currentUser.getUserPhoto() != null)
+            imageView.setImageBitmap(DatabaseInterface.byteArrayToBitmap(currentUser.getUserPhoto()));
+    }
 }

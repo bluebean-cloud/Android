@@ -1,6 +1,8 @@
 package com.example.success.entity;
 
 
+import androidx.annotation.Nullable;
+
 import org.greenrobot.greendao.DaoException;
 import org.greenrobot.greendao.annotation.Entity;
 import org.greenrobot.greendao.annotation.Generated;
@@ -137,6 +139,7 @@ public class User {
         this.noteTime = noteTime;
     }
 
+    @Nullable
     public byte[] getUserPhoto() {
         return this.userPhoto;
     }

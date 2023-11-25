@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -55,6 +56,13 @@ public class Sign_In extends Activity {
                         Toast.makeText(Sign_In.this, "注册成功", Toast.LENGTH_LONG).show();
                         // 注册成功后跳转页面到主页
                         Intent loginSuccess = new Intent(Sign_In.this,MainActivity.class);
+                        // 防止回退跳转注册页面
+                        loginSuccess.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                        if (((CheckBox)findViewById(R.id.check_autologin)).isChecked()) {
+                            CurrentUser.saveUserInfo(Sign_In.this, name, passwd);
+                        } else {
+                            CurrentUser.removeUserInfo(Sign_In.this);
+                        }
                         loginSuccess.putExtra("name", name);
                         loginSuccess.putExtra("passwd", passwd);
                         startActivity(loginSuccess);

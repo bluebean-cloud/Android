@@ -1874,7 +1874,7 @@ public class DatabaseInterface {
      * ImageView image = new ImageView(context);
      * image.setImageBitmap(bitmap);
      */
-    private static Bitmap byteArrayToBitmap(byte[] bytes) {
+    public static Bitmap byteArrayToBitmap(byte[] bytes) {
         Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
         return bitmap;
 
