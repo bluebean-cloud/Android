@@ -15,6 +15,8 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
@@ -27,7 +29,9 @@ import java.net.URLEncoder;
 public class CalorieDetection extends AppCompatActivity {
 
     private ActivityResultLauncher<Intent> register;
+    private String accessToken;
 
+    String calorieResult;
     private byte[] imgByte;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +48,7 @@ public class CalorieDetection extends AppCompatActivity {
                         ByteArrayOutputStream stream = new ByteArrayOutputStream();
                         bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
                         imgByte = stream.toByteArray();
+                        ((ImageView)findViewById(R.id.food_picture)).setImageBitmap(bitmap);
                         Log.d("TAG", imgByte.toString());
                         inputStream.close();
                         dish();
@@ -61,7 +66,7 @@ public class CalorieDetection extends AppCompatActivity {
 
     public void dish() {
 
-
+        getAccessTokenInBackground();
         // 请求url
         String url = "https://aip.baidubce.com/rest/2.0/image-classify/v2/dish";
         try {
@@ -78,12 +83,10 @@ public class CalorieDetection extends AppCompatActivity {
                 @Override
                 protected String doInBackground(Void... voids) {
                     try {
-                        // 注意这里仅为了简化编码每一次请求都去获取access_token，线上环境access_token有过期时间， 客户端可自行缓存，过期后重新获取。
-                        String accessToken = "24.49c4a6a64de6bd2914f4061e8019293e.2592000.1703513103.282335-43106670";
-
-                        String result = HttpUtil.post(url, accessToken, param);
-                        Log.d("CalorieResult", result);
-                        return result;
+                        calorieResult = HttpUtil.post(url, "24.49c4a6a64de6bd2914f4061e8019293e.2592000.1703513103.282335-43106670", param);
+                        Log.d("CalorieResult", calorieResult);
+                        ((TextView)findViewById(R.id.calorie_result)).setText(calorieResult);
+                        return calorieResult;
                     } catch (Exception e) {
                         e.printStackTrace();
                         return null;
@@ -111,7 +114,7 @@ public class CalorieDetection extends AppCompatActivity {
             @Override
             public void run() {
                 try {
-                    String accessToken = GetAccessToken();
+                    accessToken = GetAccessToken();
                     // 处理获取到的accessToken，例如打印或更新UI
                     Log.d("AccessToken", accessToken);
                 } catch (IOException e) {
@@ -137,6 +140,7 @@ public class CalorieDetection extends AppCompatActivity {
         Response response = HTTP_CLIENT.newCall(request).execute();
         return response.body().string();
     }
+
 
 
 }
