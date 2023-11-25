@@ -15,9 +15,11 @@ import com.example.success.entity.KnowledgeHistory;
 import com.example.success.entity.KnowledgeLabel;
 import com.example.success.entity.KnowledgeTask;
 import com.example.success.entity.Label;
+import com.example.success.entity.Room;
 import com.example.success.entity.SportRecord;
 import com.example.success.entity.SportTip;
 import com.example.success.entity.User;
+import com.example.success.entity.UserInRoom;
 import com.example.success.entity.Word;
 import com.example.success.entity.WordHistory;
 import com.example.success.entity.WordLabel;
@@ -30,9 +32,11 @@ import com.example.success.generatedDao.KnowledgeHistoryDao;
 import com.example.success.generatedDao.KnowledgeLabelDao;
 import com.example.success.generatedDao.KnowledgeTaskDao;
 import com.example.success.generatedDao.LabelDao;
+import com.example.success.generatedDao.RoomDao;
 import com.example.success.generatedDao.SportRecordDao;
 import com.example.success.generatedDao.SportTipDao;
 import com.example.success.generatedDao.UserDao;
+import com.example.success.generatedDao.UserInRoomDao;
 import com.example.success.generatedDao.WordDao;
 import com.example.success.generatedDao.WordHistoryDao;
 import com.example.success.generatedDao.WordLabelDao;
@@ -54,9 +58,11 @@ public class DaoSession extends AbstractDaoSession {
     private final DaoConfig knowledgeLabelDaoConfig;
     private final DaoConfig knowledgeTaskDaoConfig;
     private final DaoConfig labelDaoConfig;
+    private final DaoConfig roomDaoConfig;
     private final DaoConfig sportRecordDaoConfig;
     private final DaoConfig sportTipDaoConfig;
     private final DaoConfig userDaoConfig;
+    private final DaoConfig userInRoomDaoConfig;
     private final DaoConfig wordDaoConfig;
     private final DaoConfig wordHistoryDaoConfig;
     private final DaoConfig wordLabelDaoConfig;
@@ -69,9 +75,11 @@ public class DaoSession extends AbstractDaoSession {
     private final KnowledgeLabelDao knowledgeLabelDao;
     private final KnowledgeTaskDao knowledgeTaskDao;
     private final LabelDao labelDao;
+    private final RoomDao roomDao;
     private final SportRecordDao sportRecordDao;
     private final SportTipDao sportTipDao;
     private final UserDao userDao;
+    private final UserInRoomDao userInRoomDao;
     private final WordDao wordDao;
     private final WordHistoryDao wordHistoryDao;
     private final WordLabelDao wordLabelDao;
@@ -102,6 +110,9 @@ public class DaoSession extends AbstractDaoSession {
         labelDaoConfig = daoConfigMap.get(LabelDao.class).clone();
         labelDaoConfig.initIdentityScope(type);
 
+        roomDaoConfig = daoConfigMap.get(RoomDao.class).clone();
+        roomDaoConfig.initIdentityScope(type);
+
         sportRecordDaoConfig = daoConfigMap.get(SportRecordDao.class).clone();
         sportRecordDaoConfig.initIdentityScope(type);
 
@@ -110,6 +121,9 @@ public class DaoSession extends AbstractDaoSession {
 
         userDaoConfig = daoConfigMap.get(UserDao.class).clone();
         userDaoConfig.initIdentityScope(type);
+
+        userInRoomDaoConfig = daoConfigMap.get(UserInRoomDao.class).clone();
+        userInRoomDaoConfig.initIdentityScope(type);
 
         wordDaoConfig = daoConfigMap.get(WordDao.class).clone();
         wordDaoConfig.initIdentityScope(type);
@@ -130,9 +144,11 @@ public class DaoSession extends AbstractDaoSession {
         knowledgeLabelDao = new KnowledgeLabelDao(knowledgeLabelDaoConfig, this);
         knowledgeTaskDao = new KnowledgeTaskDao(knowledgeTaskDaoConfig, this);
         labelDao = new LabelDao(labelDaoConfig, this);
+        roomDao = new RoomDao(roomDaoConfig, this);
         sportRecordDao = new SportRecordDao(sportRecordDaoConfig, this);
         sportTipDao = new SportTipDao(sportTipDaoConfig, this);
         userDao = new UserDao(userDaoConfig, this);
+        userInRoomDao = new UserInRoomDao(userInRoomDaoConfig, this);
         wordDao = new WordDao(wordDaoConfig, this);
         wordHistoryDao = new WordHistoryDao(wordHistoryDaoConfig, this);
         wordLabelDao = new WordLabelDao(wordLabelDaoConfig, this);
@@ -145,9 +161,11 @@ public class DaoSession extends AbstractDaoSession {
         registerDao(KnowledgeLabel.class, knowledgeLabelDao);
         registerDao(KnowledgeTask.class, knowledgeTaskDao);
         registerDao(Label.class, labelDao);
+        registerDao(Room.class, roomDao);
         registerDao(SportRecord.class, sportRecordDao);
         registerDao(SportTip.class, sportTipDao);
         registerDao(User.class, userDao);
+        registerDao(UserInRoom.class, userInRoomDao);
         registerDao(Word.class, wordDao);
         registerDao(WordHistory.class, wordHistoryDao);
         registerDao(WordLabel.class, wordLabelDao);
@@ -162,9 +180,11 @@ public class DaoSession extends AbstractDaoSession {
         knowledgeLabelDaoConfig.clearIdentityScope();
         knowledgeTaskDaoConfig.clearIdentityScope();
         labelDaoConfig.clearIdentityScope();
+        roomDaoConfig.clearIdentityScope();
         sportRecordDaoConfig.clearIdentityScope();
         sportTipDaoConfig.clearIdentityScope();
         userDaoConfig.clearIdentityScope();
+        userInRoomDaoConfig.clearIdentityScope();
         wordDaoConfig.clearIdentityScope();
         wordHistoryDaoConfig.clearIdentityScope();
         wordLabelDaoConfig.clearIdentityScope();
@@ -199,6 +219,10 @@ public class DaoSession extends AbstractDaoSession {
         return labelDao;
     }
 
+    public RoomDao getRoomDao() {
+        return roomDao;
+    }
+
     public SportRecordDao getSportRecordDao() {
         return sportRecordDao;
     }
@@ -209,6 +233,10 @@ public class DaoSession extends AbstractDaoSession {
 
     public UserDao getUserDao() {
         return userDao;
+    }
+
+    public UserInRoomDao getUserInRoomDao() {
+        return userInRoomDao;
     }
 
     public WordDao getWordDao() {

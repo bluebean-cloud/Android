@@ -14,7 +14,9 @@ import com.example.success.entity.KnowledgeTask;
 import com.example.success.entity.Label;
 import com.example.success.entity.SportRecord;
 import com.example.success.entity.SportTip;
+import com.example.success.entity.Room;
 import com.example.success.entity.User;
+import com.example.success.entity.UserInRoom;
 import com.example.success.entity.Word;
 import com.example.success.entity.WordHistory;
 import com.example.success.entity.WordLabel;
@@ -30,10 +32,12 @@ import com.example.success.generatedDao.KnowledgeTaskDao;
 import com.example.success.generatedDao.LabelDao;
 import com.example.success.generatedDao.SportRecordDao;
 import com.example.success.generatedDao.UserDao;
+import com.example.success.generatedDao.UserInRoomDao;
 import com.example.success.generatedDao.WordDao;
 import com.example.success.generatedDao.WordHistoryDao;
 import com.example.success.generatedDao.WordLabelDao;
 import com.example.success.generatedDao.WordTaskDao;
+import com.example.success.generatedDao.RoomDao;
 
 import org.greenrobot.greendao.query.QueryBuilder;
 
@@ -1926,6 +1930,131 @@ public class DatabaseInterface {
         }
     }
 
+
+    /*--------------------房间数据操作----------------------*/
+
+    public int addRoom(User creator, String maxUserNumber, String roomName, String sportType,
+                       String roomDescribe, String startTime, String endTime) {
+
+        int maxUserNumberInt = Integer.parseInt(maxUserNumber);
+
+        Room room = new Room();
+        room.setRoomName(roomName);
+        room.setMaxUserNumber(maxUserNumberInt);
+        room.setRoomDescribe(roomDescribe);
+        room.setSportType(sportType);
+        room.setStartTime(startTime);
+        room.setEndTime(endTime);
+        daoSession.insert(room);
+        joinRoom(room.getId(),creator.getId());
+        return 1;
+    }
+
+    public void deleteRoom(Long roomId){
+        Room room = getRoomById(roomId);
+        List<User> userList = getAllUserInRoom(roomId);
+        for (User user : userList) {
+            quitRoom(roomId, user.getId());
+        }
+        daoSession.delete(room);
+    }
+
+
+    public List<Room> getAllRoom() {
+        QueryBuilder<Room> queryBuilder = daoSession.queryBuilder(Room.class);
+        return queryBuilder.list();
+    }
+
+    public Room getRoomById(Long id) {
+        List<Room> roomList = daoSession.queryBuilder(Room.class).where(
+                RoomDao.Properties.Id.eq(id)).list();
+        if (roomList == null || roomList.isEmpty()) {
+            return null;
+        }
+        return roomList.get(0);
+    }
+
+
+    /**
+     * User 与 Room 之间多对多关系
+     */
+    private UserInRoom getUserInRoom(Long roomId, Long userId) {
+        List<UserInRoom> room_user_list = daoSession.queryBuilder(UserInRoom.class).where(
+                UserInRoomDao.Properties.RoomId.eq(roomId),
+                UserInRoomDao.Properties.UserId.eq(userId)
+        ).list();
+        if (room_user_list != null && (!room_user_list.isEmpty())) {
+            return room_user_list.get(0);
+        }
+        List<UserInRoom> user_room_list = daoSession.queryBuilder(UserInRoom.class).where(
+                UserInRoomDao.Properties.RoomId.eq(roomId),
+                UserInRoomDao.Properties.UserId.eq(userId)
+        ).list();
+        if (user_room_list != null && (!user_room_list.isEmpty())) {
+            return user_room_list.get(0);
+        }
+        return null;
+    }
+
+    // 判断 user1 和 user2 是不是朋友
+    // 注：如果申请了但是还没通过也返回 false
+    public boolean isInRoom(Long roomId, Long userId) {
+        UserInRoom relationship = getUserInRoom(roomId, userId);
+        return relationship != null;
+    }
+
+    public List<User> getAllUserInRoom(Long roomId) {
+        List<User> userInRoom = new ArrayList<>();
+        if (roomId != null) {
+            List<UserInRoom> relationship = daoSession.queryBuilder(UserInRoom.class).where(
+                    UserInRoomDao.Properties.RoomId.eq(roomId)
+            ).list();
+            for (UserInRoom a : relationship) {
+                userInRoom.add(getUserById(a.getUserId()));
+            }
+        }
+        return userInRoom;
+    }
+
+
+    public int joinRoom(Long roomId, Long userId){
+        if (roomId != null && userId != null) {
+            QueryBuilder<UserInRoom> qb = daoSession.queryBuilder(UserInRoom.class);
+            List<UserInRoom> ret = qb.where(
+                    qb.and(UserInRoomDao.Properties.RoomId.eq(roomId),
+                            UserInRoomDao.Properties.UserId.eq(userId)
+                    )).list();
+            if (ret != null && !ret.isEmpty()) {
+                return 1;
+            }
+            else {
+                UserInRoom relationship = new UserInRoom();
+                relationship.setRoomId(roomId);
+                relationship.setUserId(userId);
+                daoSession.insert(relationship);
+                return 0;
+            }
+
+        }
+        else {
+            return 2;
+        }
+    }
+
+    public void quitRoom(Long roomId, Long userId){
+        if (roomId != null && userId != null) {
+            QueryBuilder<UserInRoom> qb = daoSession.queryBuilder(UserInRoom.class);
+            List<UserInRoom> ret = qb.where(
+                    qb.and(UserInRoomDao.Properties.RoomId.eq(roomId),
+                            UserInRoomDao.Properties.UserId.eq(userId)
+            )).list();
+            if (ret != null && !ret.isEmpty()) {
+                for (UserInRoom userInRoom : ret) {
+                    daoSession.delete(userInRoom);
+                }
+            }
+        }
+    }
+
+
 }
-
-

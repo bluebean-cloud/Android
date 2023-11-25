@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_margin="8dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/room_card"
+        android:layout_width="match_parent"
+        android:layout_height="185dp"
+        android:background="#E2F3F8"
+        android:minWidth="?android:attr/scrollbarSize"
+        tools:layout_editor_absoluteX="1dp">
+
+        <View
+            android:id="@+id/divider2"
+            android:layout_width="390dp"
+            android:layout_height="1dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:background="?android:attr/listDivider"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.233" />
+
+        <TextView
+            android:id="@+id/textViewSportRecordItem2"
+            android:layout_width="70dp"
+            android:layout_height="25dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:text="运动类型"
+            android:textColor="#AAA3A3"
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/divider2" />
+
+        <TextView
+            android:id="@+id/textViewSportRecordItem3"
+            android:layout_width="70dp"
+            android:layout_height="25dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="12dp"
+            android:text="人数"
+            android:textColor="#AAA3A3"
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textViewSportRecordItem2" />
+
+        <TextView
+            android:id="@+id/room_card_name"
+            android:layout_width="160dp"
+            android:layout_height="25dp"
+            android:layout_weight="1"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toTopOf="@+id/divider2"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/room_card_sport_type"
+            android:layout_width="160dp"
+            android:layout_height="25dp"
+            android:textSize="16sp"
+            app:layout_constraintBaseline_toBaselineOf="@+id/textViewSportRecordItem2"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.107"
+            app:layout_constraintStart_toEndOf="@+id/textViewSportRecordItem2" />
+
+        <TextView
+            android:id="@+id/room_card_max_number"
+            android:layout_width="160dp"
+            android:layout_height="25dp"
+            android:textSize="16sp"
+            app:layout_constraintBaseline_toBaselineOf="@+id/textViewSportRecordItem3"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.107"
+            app:layout_constraintStart_toEndOf="@+id/textViewSportRecordItem3" />
+
+        <View
+            android:id="@+id/divider"
+            android:layout_width="390dp"
+            android:layout_height="1dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:background="?android:attr/listDivider"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.728" />
+
+        <TextView
+            android:id="@+id/room_card_start_time"
+            android:layout_width="142dp"
+            android:layout_height="23dp"
+            android:layout_marginStart="48dp"
+            android:text="2023-10-30"
+            android:textColor="#AAA3A3"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.901" />
+
+        <TextView
+            android:id="@+id/room_card_end_time"
+            android:layout_width="142dp"
+            android:layout_height="23dp"
+            android:text="2023-10-30"
+            android:textColor="#AAA3A3"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/room_card_start_tiime"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.901" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.cardview.widget.CardView>
