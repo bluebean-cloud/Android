@@ -30,6 +30,8 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.core.content.FileProvider;
 
+import com.example.success.util.SensitiveWordsUtils;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -58,6 +60,7 @@ public class CreateTip extends Activity {
             EditText editContent = findViewById(R.id.tipContent);
             String title = editTitle.getText().toString();
             String content = editContent.getText().toString();
+            content = SensitiveWordsUtils.replaceSensitiveWord(content, "*", SensitiveWordsUtils.MaxMatchType);
             Bitmap bitmap = null;
             if (tipImage.getDrawable() != null) {
                 bitmap = ((BitmapDrawable) tipImage.getDrawable()).getBitmap();
