@@ -15,9 +15,9 @@ import com.example.success.entity.KnowledgeHistory;
 import com.example.success.entity.KnowledgeLabel;
 import com.example.success.entity.KnowledgeTask;
 import com.example.success.entity.Label;
+import com.example.success.entity.Room;
 import com.example.success.entity.SportRecord;
 import com.example.success.entity.SportTip;
-import com.example.success.entity.Room;
 import com.example.success.entity.User;
 import com.example.success.entity.UserInRoom;
 import com.example.success.entity.Word;
@@ -58,9 +58,9 @@ public class DaoSession extends AbstractDaoSession {
     private final DaoConfig knowledgeLabelDaoConfig;
     private final DaoConfig knowledgeTaskDaoConfig;
     private final DaoConfig labelDaoConfig;
+    private final DaoConfig roomDaoConfig;
     private final DaoConfig sportRecordDaoConfig;
     private final DaoConfig sportTipDaoConfig;
-    private final DaoConfig roomDaoConfig;
     private final DaoConfig userDaoConfig;
     private final DaoConfig userInRoomDaoConfig;
     private final DaoConfig wordDaoConfig;
@@ -75,9 +75,9 @@ public class DaoSession extends AbstractDaoSession {
     private final KnowledgeLabelDao knowledgeLabelDao;
     private final KnowledgeTaskDao knowledgeTaskDao;
     private final LabelDao labelDao;
+    private final RoomDao roomDao;
     private final SportRecordDao sportRecordDao;
     private final SportTipDao sportTipDao;
-    private final RoomDao roomDao;
     private final UserDao userDao;
     private final UserInRoomDao userInRoomDao;
     private final WordDao wordDao;
@@ -110,14 +110,14 @@ public class DaoSession extends AbstractDaoSession {
         labelDaoConfig = daoConfigMap.get(LabelDao.class).clone();
         labelDaoConfig.initIdentityScope(type);
 
+        roomDaoConfig = daoConfigMap.get(RoomDao.class).clone();
+        roomDaoConfig.initIdentityScope(type);
+
         sportRecordDaoConfig = daoConfigMap.get(SportRecordDao.class).clone();
         sportRecordDaoConfig.initIdentityScope(type);
 
         sportTipDaoConfig = daoConfigMap.get(SportTipDao.class).clone();
         sportTipDaoConfig.initIdentityScope(type);
-
-        roomDaoConfig = daoConfigMap.get(RoomDao.class).clone();
-        roomDaoConfig.initIdentityScope(type);
 
         userDaoConfig = daoConfigMap.get(UserDao.class).clone();
         userDaoConfig.initIdentityScope(type);
@@ -144,9 +144,9 @@ public class DaoSession extends AbstractDaoSession {
         knowledgeLabelDao = new KnowledgeLabelDao(knowledgeLabelDaoConfig, this);
         knowledgeTaskDao = new KnowledgeTaskDao(knowledgeTaskDaoConfig, this);
         labelDao = new LabelDao(labelDaoConfig, this);
+        roomDao = new RoomDao(roomDaoConfig, this);
         sportRecordDao = new SportRecordDao(sportRecordDaoConfig, this);
         sportTipDao = new SportTipDao(sportTipDaoConfig, this);
-        roomDao = new RoomDao(roomDaoConfig, this);
         userDao = new UserDao(userDaoConfig, this);
         userInRoomDao = new UserInRoomDao(userInRoomDaoConfig, this);
         wordDao = new WordDao(wordDaoConfig, this);
@@ -219,16 +219,16 @@ public class DaoSession extends AbstractDaoSession {
         return labelDao;
     }
 
+    public RoomDao getRoomDao() {
+        return roomDao;
+    }
+
     public SportRecordDao getSportRecordDao() {
         return sportRecordDao;
     }
 
     public SportTipDao getSportTipDao() {
         return sportTipDao;
-    }
-
-    public RoomDao getRoomDao() {
-        return roomDao;
     }
 
     public UserDao getUserDao() {
