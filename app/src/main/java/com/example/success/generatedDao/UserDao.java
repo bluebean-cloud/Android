@@ -13,6 +13,7 @@ import org.greenrobot.greendao.query.Query;
 import org.greenrobot.greendao.query.QueryBuilder;
 
 import com.example.success.entity.FriendShip;
+import com.example.success.entity.UserInRoom;
 
 import com.example.success.entity.User;
 
@@ -41,6 +42,7 @@ public class UserDao extends AbstractDao<User, Long> {
 
     private DaoSession daoSession;
 
+    private Query<User> room_JoinUsersQuery;
     private Query<User> user_FriendsQuery;
 
     public UserDao(DaoConfig config) {
@@ -193,6 +195,21 @@ public class UserDao extends AbstractDao<User, Long> {
         return true;
     }
     
+    /** Internal query to resolve the "joinUsers" to-many relationship of Room. */
+    public List<User> _queryRoom_JoinUsers(Long roomId) {
+        synchronized (this) {
+            if (room_JoinUsersQuery == null) {
+                QueryBuilder<User> queryBuilder = queryBuilder();
+                queryBuilder.join(UserInRoom.class, UserInRoomDao.Properties.UserId)
+                    .where(UserInRoomDao.Properties.RoomId.eq(roomId));
+                room_JoinUsersQuery = queryBuilder.build();
+            }
+        }
+        Query<User> query = room_JoinUsersQuery.forCurrentThread();
+        query.setParameter(0, roomId);
+        return query.list();
+    }
+
     /** Internal query to resolve the "friends" to-many relationship of User. */
     public List<User> _queryUser_Friends(Long user1Id) {
         synchronized (this) {

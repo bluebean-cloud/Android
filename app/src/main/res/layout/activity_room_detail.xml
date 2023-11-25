@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".RoomDetail">
+
+    <ImageView
+        android:id="@+id/imageViewSportDetailHeader"
+        android:layout_width="554dp"
+        android:layout_height="277dp"
+        android:layout_marginBottom="548dp"
+        android:src="@drawable/sport_record_detail_header"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.503"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/CardVeiwForSportDetail"
+        android:layout_width="387dp"
+        android:layout_height="574dp"
+        android:layout_marginBottom="12dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="574dp"
+            tools:layout_editor_absoluteX="0dp"
+            tools:layout_editor_absoluteY="-10dp">
+
+            <TextView
+                android:id="@+id/room_detail_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:textSize="34sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/textViewSportDetail1"
+                android:layout_width="70dp"
+                android:layout_height="25dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="68dp"
+                android:text="房主名称"
+                android:textColor="#AAA3A3"
+                android:textSize="16sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/room_detail_admin_name"
+                android:layout_width="160dp"
+                android:layout_height="25dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:layout_weight="1"
+                android:textSize="16sp"
+                app:layout_constraintBaseline_toBaselineOf="@+id/textViewSportDetail1"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toEndOf="@+id/textViewSportDetail1" />
+
+            <TextView
+                android:id="@+id/textViewSportDetail"
+                android:layout_width="70dp"
+                android:layout_height="25dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:text="运动项目"
+                android:textColor="#AAA3A3"
+                android:textSize="16sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textViewSportDetail1" />
+
+            <TextView
+                android:id="@+id/room_detail_sport_type"
+                android:layout_width="160dp"
+                android:layout_height="25dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:layout_weight="1"
+                android:textSize="16sp"
+                app:layout_constraintBaseline_toBaselineOf="@+id/textViewSportDetail"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toEndOf="@+id/textViewSportDetail" />
+
+            <TextView
+                android:id="@+id/textViewSportDetail2"
+                android:layout_width="70dp"
+                android:layout_height="25dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:text="房间人数"
+                android:textColor="#AAA3A3"
+                android:textSize="16sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textViewSportDetail" />
+
+            <TextView
+                android:id="@+id/room_detail_user_number"
+                android:layout_width="160dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:textSize="16sp"
+                app:layout_constraintBaseline_toBaselineOf="@+id/textViewSportDetail2"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toEndOf="@+id/textViewSportDetail2" />
+
+            <TextView
+                android:id="@+id/textViewSportDetail3"
+                android:layout_width="70dp"
+                android:layout_height="25dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="12dp"
+                android:text="开始时间"
+                android:textColor="#AAA3A3"
+                android:textSize="16sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textViewSportDetail2" />
+
+            <TextView
+                android:id="@+id/room_detail_start_time"
+                android:layout_width="160dp"
+                android:layout_height="25dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:textSize="16sp"
+                app:layout_constraintBaseline_toBaselineOf="@+id/textViewSportDetail3"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toEndOf="@+id/textViewSportDetail3" />
+
+            <TextView
+                android:id="@+id/textViewSportDetail4"
+                android:layout_width="70dp"
+                android:layout_height="25dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:text="结束时间"
+                android:textColor="#AAA3A3"
+                android:textSize="16sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textViewSportDetail3" />
+
+            <TextView
+                android:id="@+id/room_detail_end_time"
+                android:layout_width="160dp"
+                android:layout_height="25dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:textSize="16sp"
+                app:layout_constraintBaseline_toBaselineOf="@+id/textViewSportDetail4"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toEndOf="@+id/textViewSportDetail4" />
+
+            <TextView
+                android:id="@+id/textViewSportDetail5"
+                android:layout_width="70dp"
+                android:layout_height="25dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:text="详细信息"
+                android:textColor="#AAA3A3"
+                android:textSize="16sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textViewSportDetail4" />
+
+            <TextView
+                android:id="@+id/room_detail_describe"
+                android:layout_width="298dp"
+                android:layout_height="142dp"
+                android:layout_marginTop="60dp"
+                android:textSize="16sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.494"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/room_detail_end_time" />
+
+            <Button
+                android:id="@+id/join_room"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="joinOrQuitRoom"
+                android:text="加入房间"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.498"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/room_detail_describe" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

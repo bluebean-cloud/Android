@@ -19,10 +19,10 @@
 <!--    修改为广场-->
 
     <fragment
-        android:id="@+id/navigation_notifications"
-        android:name="com.example.success.ui.notifications.NotificationsFragment"
-        android:label="@string/title_notifications"
-        tools:layout="@layout/fragment_notifications" />
+        android:id="@+id/navigation_room"
+        android:name="com.example.success.ui.room.RoomFragment"
+        android:label="@string/title_room"
+        tools:layout="@layout/fragment_room" />
 
     <fragment
         android:id="@+id/navigation_person"

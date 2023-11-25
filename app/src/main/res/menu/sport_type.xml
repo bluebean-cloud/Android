@@ -1,0 +1,34 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/menu_option1"
+        android:title="跑步" />
+    <item
+        android:id="@+id/menu_option2"
+        android:title="篮球" />
+    <item
+        android:id="@+id/menu_option3"
+        android:title="跳高" />
+    <item
+        android:id="@+id/menu_option4"
+        android:title="羽毛球" />
+
+    <item
+        android:id="@+id/menu_option5"
+        android:title="游泳" />
+
+    <item
+        android:id="@+id/menu_option6"
+        android:title="排球" />
+
+    <item
+        android:id="@+id/menu_option7"
+        android:title="骑行" />
+
+    <item
+        android:id="@+id/menu_option8"
+        android:title="健身" />
+
+    <item
+        android:id="@+id/menu_other"
+        android:title="其他" />
+</menu>

@@ -31,6 +31,12 @@
             android:name=".DetailOfSport"
             android:exported="false" />
         <activity
+            android:name=".RoomDetail"
+            android:exported="false" />
+        <activity
+            android:name=".CreateRoom"
+            android:exported="false" />
+        <activity
             android:name=".ChangePass"
             android:exported="true"
             android:label="@string/title_activity_change_pass"

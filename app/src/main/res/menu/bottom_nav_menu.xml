@@ -12,9 +12,9 @@
         android:title="@string/title_square" />
 
     <item
-        android:id="@+id/navigation_notifications"
+        android:id="@+id/navigation_room"
         android:icon="@drawable/search2"
-        android:title="@string/title_notifications" />
+        android:title="Room" />
 
     <item
         android:id="@+id/navigation_person"

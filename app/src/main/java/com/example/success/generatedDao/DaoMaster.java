@@ -30,7 +30,9 @@ public class DaoMaster extends AbstractDaoMaster {
         LabelDao.createTable(db, ifNotExists);
         SportRecordDao.createTable(db, ifNotExists);
         SportTipDao.createTable(db, ifNotExists);
+        RoomDao.createTable(db, ifNotExists);
         UserDao.createTable(db, ifNotExists);
+        UserInRoomDao.createTable(db, ifNotExists);
         WordDao.createTable(db, ifNotExists);
         WordHistoryDao.createTable(db, ifNotExists);
         WordLabelDao.createTable(db, ifNotExists);
@@ -48,7 +50,9 @@ public class DaoMaster extends AbstractDaoMaster {
         LabelDao.dropTable(db, ifExists);
         SportRecordDao.dropTable(db, ifExists);
         SportTipDao.dropTable(db, ifExists);
+        RoomDao.dropTable(db, ifExists);
         UserDao.dropTable(db, ifExists);
+        UserInRoomDao.dropTable(db, ifExists);
         WordDao.dropTable(db, ifExists);
         WordHistoryDao.dropTable(db, ifExists);
         WordLabelDao.dropTable(db, ifExists);
@@ -78,9 +82,9 @@ public class DaoMaster extends AbstractDaoMaster {
         registerDaoClass(KnowledgeLabelDao.class);
         registerDaoClass(KnowledgeTaskDao.class);
         registerDaoClass(LabelDao.class);
-        registerDaoClass(SportRecordDao.class);
-        registerDaoClass(SportTipDao.class);
+        registerDaoClass(RoomDao.class);
         registerDaoClass(UserDao.class);
+        registerDaoClass(UserInRoomDao.class);
         registerDaoClass(WordDao.class);
         registerDaoClass(WordHistoryDao.class);
         registerDaoClass(WordLabelDao.class);

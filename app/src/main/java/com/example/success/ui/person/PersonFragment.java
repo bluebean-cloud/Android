@@ -20,8 +20,6 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.TimePicker;
@@ -30,21 +28,14 @@ import android.widget.Toast;
 import com.example.success.AddFriend;
 import com.example.success.AlarmReceiver;
 import com.example.success.ChangePass;
-import com.example.success.CurrentUser;
 import com.example.success.DatabaseInterface;
 import com.example.success.MainActivity;
 import com.example.success.R;
-import com.example.success.databinding.FragmentNotificationsBinding;
+import com.example.success.databinding.FragmentRoomBinding;
 import com.example.success.databinding.FragmentPersonBinding;
 import com.example.success.showFriends;
-import com.example.success.ui.dashboard.DashboardViewModel;
-import com.example.success.ui.notifications.NotificationsViewModel;
-import com.example.success.view.CurveView;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Calendar;
-import java.util.List;
 import java.util.TimeZone;
 
 public class PersonFragment extends Fragment {
@@ -55,7 +46,6 @@ public class PersonFragment extends Fragment {
     private Calendar mCalendar;
     protected static final int UPLOAD_PORTRAIT = 0;
     protected static final int CHANGE_PASS = 1;
-
     private PersonViewModel mViewModel;
     private FragmentPersonBinding binding;
 
