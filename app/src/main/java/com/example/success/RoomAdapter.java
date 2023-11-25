@@ -49,7 +49,7 @@ public class RoomAdapter extends RecyclerView.Adapter<RoomAdapter.RoomViewHolder
     public void onBindViewHolder(@NonNull RoomViewHolder holder, int position) {
         Room room = roomList.get(position);
         holder.roomName.setText(room.getRoomName());
-        holder.roomMaxNumber.setText(String.format("%d/%d", db.getAllUserInRoom(room.getId()).size(), room.getMaxUserNumber()));
+        holder.roomMaxNumber.setText((db.getAllUserInRoom(room.getId()).size()) + "/" + room.getMaxUserNumber());
         holder.roomSportType.setText(String.valueOf(room.getSportType()));
         holder.roomStartTime.setText(String.valueOf(room.getStartTime()));
         holder.roomEndTime.setText(String.valueOf(room.getEndTime()));
