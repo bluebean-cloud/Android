@@ -89,7 +89,7 @@ public class RoomDetail extends AppCompatActivity {
         dialog.setPositiveButton("确定", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                if (db.isInRoom(currentUserId, currentUserId)) {
+                if (db.isInRoom(currentRoomId, currentUserId)) {
                     if(Objects.equals(db.getAllUserInRoom(currentRoomId).get(0).getId(), currentUserId)) {
                         Toast.makeText(RoomDetail.this, "已解散房间", Toast.LENGTH_LONG).show();
                         db.deleteRoom(currentRoomId);
