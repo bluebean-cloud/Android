@@ -72,8 +72,18 @@ public class DatabaseInterface {
         this.daoSession = daoMaster.newSession();
     }
 
-    public void createSportRecord(SportRecord sportRecord) {
+    public void createSportRecord(Long userId, String sportName, String duration,
+                                  String sportLocation, String createDate, byte[] imageBit1,
+                                  byte[] imageBit2) {
+        SportRecord sportRecord = new SportRecord(userId, sportName, duration, sportLocation, createDate, imageBit1, imageBit2);
         daoSession.insert(sportRecord);
+    }
+
+    public List<SportRecord> getRecord(Long userId, String sportName, String duration,
+                                       String sportLocation, String createDate) {
+        QueryBuilder<SportRecord> queryBuilder = daoSession.queryBuilder(SportRecord.class).where(SportRecordDao.Properties.UserId.eq(userId), SportRecordDao.Properties.SportName.eq(sportName),
+                SportRecordDao.Properties.Duration.eq(duration), SportRecordDao.Properties.SportLocation.eq(sportLocation), SportRecordDao.Properties.CreateDate.eq(createDate));
+        return queryBuilder.list();
     }
 
     public List<SportRecord> getAllRecord() {
@@ -1946,11 +1956,11 @@ public class DatabaseInterface {
         room.setStartTime(startTime);
         room.setEndTime(endTime);
         daoSession.insert(room);
-        joinRoom(room.getId(),creator.getId());
+        joinRoom(room.getId(), creator.getId());
         return 1;
     }
 
-    public void deleteRoom(Long roomId){
+    public void deleteRoom(Long roomId) {
         Room room = getRoomById(roomId);
         List<User> userList = getAllUserInRoom(roomId);
         for (User user : userList) {
@@ -2017,7 +2027,7 @@ public class DatabaseInterface {
     }
 
 
-    public int joinRoom(Long roomId, Long userId){
+    public int joinRoom(Long roomId, Long userId) {
         if (roomId != null && userId != null) {
             QueryBuilder<UserInRoom> qb = daoSession.queryBuilder(UserInRoom.class);
             List<UserInRoom> ret = qb.where(
@@ -2026,8 +2036,7 @@ public class DatabaseInterface {
                     )).list();
             if (ret != null && !ret.isEmpty()) {
                 return 1;
-            }
-            else {
+            } else {
                 UserInRoom relationship = new UserInRoom();
                 relationship.setRoomId(roomId);
                 relationship.setUserId(userId);
@@ -2035,19 +2044,18 @@ public class DatabaseInterface {
                 return 0;
             }
 
-        }
-        else {
+        } else {
             return 2;
         }
     }
 
-    public void quitRoom(Long roomId, Long userId){
+    public void quitRoom(Long roomId, Long userId) {
         if (roomId != null && userId != null) {
             QueryBuilder<UserInRoom> qb = daoSession.queryBuilder(UserInRoom.class);
             List<UserInRoom> ret = qb.where(
                     qb.and(UserInRoomDao.Properties.RoomId.eq(roomId),
                             UserInRoomDao.Properties.UserId.eq(userId)
-            )).list();
+                    )).list();
             if (ret != null && !ret.isEmpty()) {
                 for (UserInRoom userInRoom : ret) {
                     daoSession.delete(userInRoom);

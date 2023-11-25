@@ -87,48 +87,7 @@ public class HomeFragment extends Fragment {
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == ADD_RECORD_REQUEST_CODE && resultCode == RESULT_OK) {
-            // 处理从添加运动记录界面返回的数据
-            // 更新列表或执行其他操作
-            assert data != null;
-            String sportName = data.getStringExtra("sportName"); // 从添加页面传回运动名称
-            String duration = data.getStringExtra("duration"); // 从添加页面传回运动时间
-            String sportLocation = data.getStringExtra("sportLocation"); // 从添加页面传回运动地点
-            String createDate = getCurrentTime(); // 获取当前的时间
-            int image_num = data.getIntExtra("image_num", 0);
-            byte[] byteArray1;
-            byte[] byteArray2;
-            SportRecord newSportRecord = null;
-            // 创建新的SportRecord对象
-            if (image_num == 1) {
-                byteArray1 = data.getByteArrayExtra("image1");
-                newSportRecord = new SportRecord(CurrentUser.getUser().getId(), sportName, duration, sportLocation, createDate, byteArray1, null);
-            } else if (image_num == 2) {
-                byteArray1 = data.getByteArrayExtra("image1");
-                byteArray2 = data.getByteArrayExtra("image2");
-                newSportRecord = new SportRecord(CurrentUser.getUser().getId(), sportName, duration, sportLocation, createDate, byteArray1, byteArray2);
-            }
-            // 将新的运动记录添加到适配器中
-            adapter.addSportRecord(newSportRecord);
         }
-    }
-
-    public String getCurrentTime() {
-        Calendar cal = Calendar.getInstance();
-        // 设置格式化的SimpleDateFormat对象，指定中国语言环境
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.CHINA);
-        // 创建时区（TimeZone）对象，设置时区为“亚洲/重庆"
-        TimeZone TZ = TimeZone.getTimeZone("Asia/Chongqing");
-        // 将SimpleDateFormat强制转换为DateFormat
-        DateFormat df = null;
-        try {
-            df = (DateFormat) sdf;
-        } catch (Exception E) {
-            E.printStackTrace();
-        }
-        // 为DateFormat对象设置时区
-        df.setTimeZone(TZ);
-        // 获取时间表达式
-        return df.format(cal.getTime());
     }
 
     //重新显示原有的界面
@@ -138,6 +97,9 @@ public class HomeFragment extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
         // 创建适配器
+        sportRecords = db.getUserRecord(CurrentUser.getUser().getId());
+        //将sportRecord逆序
+        Collections.reverse(sportRecords);
         adapter = new SportRecordAdapter(sportRecords);
         adapter.setRecyclerView(recyclerView); // 设置 RecyclerView
 

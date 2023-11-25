@@ -41,7 +41,11 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Locale;
+import java.util.TimeZone;
 
 public class AddSportRecordActivity extends Activity {
     public EditText editTextSportName;
@@ -215,19 +219,33 @@ public class AddSportRecordActivity extends Activity {
             }
             // 创建一个Intent，将结果传递回上一个界面
             Intent resultIntent = new Intent();
-            resultIntent.putExtra("sportName", sportName);
-            resultIntent.putExtra("duration", duration);
-            resultIntent.putExtra("sportLocation", sportLocation);
-            resultIntent.putExtra("image_num", image_num);
-            resultIntent.putExtra("image1", byteArray1);
-            if (image_num == 2) {
-                resultIntent.putExtra("image2", byteArray2);
-            }
+            //将新记录添加到数据库中
+            DatabaseInterface db = MainActivity.db;
+            db.createSportRecord(CurrentUser.getUser().getId(), sportName, duration, sportLocation, getCurrentTime(), byteArray1, byteArray2);
             setResult(RESULT_OK, resultIntent);
             Toast.makeText(this, "添加成功", Toast.LENGTH_SHORT).show();
             // 结束当前界面，返回到上一个界面
             finish();
         }
+    }
+
+    public String getCurrentTime() {
+        Calendar cal = Calendar.getInstance();
+        // 设置格式化的SimpleDateFormat对象，指定中国语言环境
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.CHINA);
+        // 创建时区（TimeZone）对象，设置时区为“亚洲/重庆"
+        TimeZone TZ = TimeZone.getTimeZone("Asia/Chongqing");
+        // 将SimpleDateFormat强制转换为DateFormat
+        DateFormat df = null;
+        try {
+            df = (DateFormat) sdf;
+        } catch (Exception E) {
+            E.printStackTrace();
+        }
+        // 为DateFormat对象设置时区
+        df.setTimeZone(TZ);
+        // 获取时间表达式
+        return df.format(cal.getTime());
     }
 
     public void addSportPhoto(View view) {

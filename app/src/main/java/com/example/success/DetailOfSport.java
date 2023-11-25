@@ -9,6 +9,8 @@ import android.os.Bundle;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.success.entity.SportRecord;
+
 import java.util.Objects;
 
 public class DetailOfSport extends Activity {
@@ -62,12 +64,19 @@ public class DetailOfSport extends Activity {
         //运动地点
         textViewSportLocationInDetail.setText(intent.getStringExtra("textViewSportLocationInDetail"));
         //图片1
-        byte[] byteArray = intent.getByteArrayExtra("image1");
+        DatabaseInterface db = MainActivity.db;
+        SportRecord sportRecord = db.getRecord(CurrentUser.getUser().getId(),
+                intent.getStringExtra("textViewSportNameInDetail"),
+                intent.getStringExtra("textViewDurationInDetail"),
+                intent.getStringExtra("textViewSportLocationInDetail"),
+                intent.getStringExtra("textViewCreateDateInDetail")
+        ).get(0);
+        byte[] byteArray = sportRecord.getImageBit1();
         Bitmap bitmap = BitmapFactory.decodeByteArray(byteArray, 0, byteArray.length);
         imageViewSportDetail1.setImageBitmap(bitmap);
         //图片2,如果有图片2
-        if (intent.hasExtra("image2")) {
-            byteArray = intent.getByteArrayExtra("image2");
+        if (sportRecord.getImageBit2().length != 0) {
+            byteArray = sportRecord.getImageBit2();
             bitmap = BitmapFactory.decodeByteArray(byteArray, 0, byteArray.length);
             imageViewSportDetail2.setImageBitmap(bitmap);
         }
