@@ -36,7 +36,7 @@
                 android:id="@+id/imageViewUserHeaderImageInSportDetail"
                 android:layout_width="72dp"
                 android:layout_height="72dp"
-                android:src="@drawable/beautiful"
+                android:src="@drawable/kl"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.05"

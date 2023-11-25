@@ -51,8 +51,10 @@ public class DetailOfSport extends Activity {
         Intent intent = getIntent();
         //用户头像
         byte[] array = CurrentUser.getUser().getUserPhoto();
-        Bitmap bitHeader = BitmapFactory.decodeByteArray(array, 0, array.length);
-        imageViewUserHeaderImageInSportDetail.setImageBitmap(bitHeader);
+        if (array != null) {
+            Bitmap bitHeader = BitmapFactory.decodeByteArray(array, 0, array.length);
+            imageViewUserHeaderImageInSportDetail.setImageBitmap(bitHeader);
+        }
         //用户名
         textViewUserIdInDetail.setText(intent.getStringExtra("textViewUserIdInDetail"));
         //创建时间
