@@ -14,6 +14,7 @@ import androidx.lifecycle.MutableLiveData;
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
+import android.app.Activity;
 import android.content.ContentUris;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -52,6 +53,8 @@ public class takePhoto extends AppCompatActivity {
     private boolean initBase = false;
     private final MutableLiveData<String> progress = new MutableLiveData<>();
     private TessBaseAPI baseAPI;
+
+    private Uri resultUri = null;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -141,6 +144,7 @@ public class takePhoto extends AppCompatActivity {
                     Bitmap bitmap = null;
                     try {
                         bitmap = BitmapFactory.decodeStream(getContentResolver().openInputStream(imageUri));
+                        resultUri = imageUri;
                     } catch (FileNotFoundException e) {
                         e.printStackTrace();
                     }
@@ -150,9 +154,10 @@ public class takePhoto extends AppCompatActivity {
             case CHOOSE_PHOTO:
                 if (resultCode == RESULT_OK) {
                     // 判断手机版本号
+                    assert data != null;
+                    resultUri = data.getData();
                     if (Build.VERSION.SDK_INT >= 19) {
                         // 4.4及以上系统使用这个方法处理图片
-                        assert data != null;
                         handleImageOnKitKat(data);
                     } else {
                         handleImageBeforeKitKat(data);
@@ -337,5 +342,18 @@ public class takePhoto extends AppCompatActivity {
         progress.observe(this, progress -> {
             process.setText(progress);
         });
+    }
+
+    public void ensure_choose_img(View view) {
+        if (resultUri == null) {
+            Toast.makeText(this, "You denied the permission", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        Intent intent = new Intent();
+        intent.setData(resultUri);
+
+        setResult(Activity.RESULT_OK, intent);
+        finish();
     }
 }

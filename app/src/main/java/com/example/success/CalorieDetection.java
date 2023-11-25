@@ -2,8 +2,16 @@ package com.example.success;
 
 import java.io.*;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Activity;
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -18,30 +26,81 @@ import java.net.URLEncoder;
 
 public class CalorieDetection extends AppCompatActivity {
 
+    private ActivityResultLauncher<Intent> register;
+
+    private byte[] imgByte;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_calorie_detection);
 
+        register = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
+            if (result != null && result.getResultCode() == Activity.RESULT_OK && result.getData() != null) {
+                Uri imgUri = result.getData().getData();
+                if (imgUri != null) {
+                    try {
+                        InputStream inputStream = getContentResolver().openInputStream(imgUri);
+                        Bitmap bitmap = BitmapFactory.decodeStream(inputStream);
+                        ByteArrayOutputStream stream = new ByteArrayOutputStream();
+                        bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
+                        imgByte = stream.toByteArray();
+                        Log.d("TAG", imgByte.toString());
+                        inputStream.close();
+                        dish();
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
+                }
+            }
+        });
     }
 
-    public void dish(View view) {
+    public void takePhoto(View view) {
+        register.launch(new Intent(this, takePhoto.class));
+    }
+
+    public void dish() {
+
+
         // 请求url
         String url = "https://aip.baidubce.com/rest/2.0/image-classify/v2/dish";
         try {
             // 本地文件路径
-            String filePath = "hamburger.png";
-            byte[] imgData = FileUtil.readFileByBytes(filePath);
-            String imgStr = Base64Util.encode(imgData);
+        //    String filePath = "hamburger.png";
+        //    byte[] imgData = FileUtil.readFileByBytes(filePath);
+            String imgStr = Base64Util.encode(imgByte);
+            Log.d("TAG", imgStr);
             String imgParam = URLEncoder.encode(imgStr, "UTF-8");
-
+            Log.d("TAG", imgParam);
             String param = "image=" + imgParam + "&top_num=" + 5;
 
-            // 注意这里仅为了简化编码每一次请求都去获取access_token，线上环境access_token有过期时间， 客户端可自行缓存，过期后重新获取。
-            String accessToken = "24.dd72145ec83b679e7aded83a92a1f3d9.2592000.1703039681.282335-43106670";
+            new AsyncTask<Void, Void, String>() {
+                @Override
+                protected String doInBackground(Void... voids) {
+                    try {
+                        // 注意这里仅为了简化编码每一次请求都去获取access_token，线上环境access_token有过期时间， 客户端可自行缓存，过期后重新获取。
+                        String accessToken = "24.49c4a6a64de6bd2914f4061e8019293e.2592000.1703513103.282335-43106670";
 
-            String result = HttpUtil.post(url, accessToken, param);
-            Log.d("CalorieResult", result);
+                        String result = HttpUtil.post(url, accessToken, param);
+                        Log.d("CalorieResult", result);
+                        return result;
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                        return null;
+                    }
+                }
+
+                @Override
+                protected void onPostExecute(String result) {
+                    // 处理网络请求结果
+                    if (result != null) {
+                        // 在这里处理网络请求成功的情况
+                    } else {
+                        // 在这里处理网络请求失败的情况
+                    }
+                }
+            }.execute();
+
         } catch (Exception e) {
             e.printStackTrace();
         }
