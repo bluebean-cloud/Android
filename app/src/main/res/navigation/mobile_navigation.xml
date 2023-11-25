@@ -27,6 +27,6 @@
     <fragment
         android:id="@+id/navigation_person"
         android:name="com.example.success.ui.person.PersonFragment"
-        android:label="个人页"
+        android:label="User"
         tools:layout="@layout/fragment_person" />
 </navigation>

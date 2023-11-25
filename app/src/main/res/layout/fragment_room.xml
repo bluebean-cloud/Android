@@ -5,7 +5,7 @@
     android:id="@+id/navigation_room"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/blue2"
+    android:background="@drawable/yuanshen2"
     tools:context=".AddFriend">
 
 

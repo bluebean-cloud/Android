@@ -10,7 +10,7 @@
         android:id="@+id/room_card"
         android:layout_width="match_parent"
         android:layout_height="185dp"
-        android:background="#E2F3F8"
+        android:background="#F8F8F8"
         android:minWidth="?android:attr/scrollbarSize"
         tools:layout_editor_absoluteX="1dp">
 

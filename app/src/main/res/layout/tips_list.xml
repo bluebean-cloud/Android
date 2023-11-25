@@ -1,17 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="wrap_content"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="8dp"
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="403dp"
-        android:layout_height="145dp"
+        android:layout_width="452dp"
+        android:layout_height="165dp"
         android:background="#E2F3F8"
         android:minWidth="?android:attr/scrollbarSize"
-        tools:layout_editor_absoluteX="1dp">
+        tools:layout_editor_absoluteX="1dp"
+        android:padding="7dp">
 
         <TextView
             android:id="@+id/tip_title"
@@ -29,24 +30,24 @@
             app:layout_constraintVertical_bias="0.009"
             tools:ignore="MissingConstraints" />
 
+
         <TextView
             android:id="@+id/tip_content"
             android:layout_width="193dp"
             android:layout_height="99dp"
-            android:layout_marginStart="104dp"
+            android:layout_marginStart="136dp"
             android:text="内容"
             android:textColor="#AAA3A3"
             android:textSize="16sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
 
-
         <TextView
             android:id="@+id/tip_user"
             android:layout_width="143dp"
             android:layout_height="33dp"
-            android:layout_marginStart="188dp"
-            android:layout_marginBottom="96dp"
+            android:layout_marginStart="184dp"
+            android:layout_marginBottom="108dp"
             android:text="创建者"
             android:textColor="#AAA3A3"
             android:textSize="16sp"

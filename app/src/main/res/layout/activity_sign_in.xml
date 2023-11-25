@@ -83,12 +83,12 @@
         android:id="@+id/sureButton_signIn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="61dp"
+        android:layout_marginEnd="44dp"
         android:layout_marginBottom="75dp"
-        android:text="确定"
-        android:textSize="19sp"
-        android:textColor="#ffffff"
         android:background="@drawable/bt_shape"
+        android:text="确定"
+        android:textColor="#ffffff"
+        android:textSize="19sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/welcome" />
@@ -105,20 +105,24 @@
 
     <CheckBox
         android:id="@+id/check_autologin"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintEnd_toStartOf="@+id/textView4"
-        app:layout_constraintBottom_toBottomOf="@id/textView4"
-        android:layout_marginBottom="-14dp"/>
+        android:layout_width="31dp"
+        android:layout_height="35dp"
+        android:layout_marginStart="276dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.801" />
 
     <TextView
         android:id="@+id/textView4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="15dp"
+        android:layout_marginEnd="48dp"
         android:text="自动登录"
-        app:layout_constraintBottom_toTopOf="@+id/sureButton_signIn"
-        app:layout_constraintEnd_toEndOf="@+id/sureButton_signIn" />
-    
+        app:layout_constraintBaseline_toBaselineOf="@+id/check_autologin"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@+id/check_autologin" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

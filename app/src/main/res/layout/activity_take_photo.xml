@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/cloud"
     tools:context=".takePhoto">
 
     <Button
@@ -17,12 +18,13 @@
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.36" />
+        app:layout_constraintVertical_bias="0.395" />
 
     <Button
         android:id="@+id/choose_from_album"
         android:layout_width="222dp"
         android:layout_height="50dp"
+        android:layout_marginBottom="284dp"
         android:onClick="choosePhoto"
         android:text="@string/choose_photo"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -30,20 +32,7 @@
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/take_photo"
-        app:layout_constraintVertical_bias="0.13999999" />
-
-    <Button
-        android:id="@+id/choose_txt"
-        android:layout_width="222dp"
-        android:layout_height="50dp"
-        android:onClick="chooseTxt"
-        android:text="上传文本"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/choose_from_album"
-        app:layout_constraintVertical_bias="0.13999999" />
+        app:layout_constraintVertical_bias="0.705" />
 
     <ImageView
         android:id="@+id/get_imageView"
@@ -68,17 +57,16 @@
         app:layout_constraintVertical_bias="0.13999999" />
 
     <Button
+        android:id="@+id/btn_ensure_img"
         android:layout_width="222dp"
         android:layout_height="50dp"
-        android:text="@string/sure"
-        android:id="@+id/btn_ensure_img"
+        android:layout_marginTop="52dp"
         android:onClick="ensure_choose_img"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:text="@string/sure"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/choose_txt"
-        app:layout_constraintVertical_bias="0.13999999" />
-
+        app:layout_constraintTop_toBottomOf="@+id/choose_from_album" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
