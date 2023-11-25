@@ -212,7 +212,7 @@ public class AddSportRecordActivity extends Activity {
             ByteArrayOutputStream stream2 = new ByteArrayOutputStream();
             bitmap1.compress(Bitmap.CompressFormat.PNG, 100, stream1);
             byte[] byteArray1 = stream1.toByteArray();
-            byte[] byteArray2 = new byte[0];
+            byte[] byteArray2 = null;
             if (image_num == 2) {
                 bitmap2.compress(Bitmap.CompressFormat.PNG, 100, stream2);
                 byteArray2 = stream2.toByteArray();

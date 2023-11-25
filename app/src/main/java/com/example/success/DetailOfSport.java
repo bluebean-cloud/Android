@@ -75,7 +75,7 @@ public class DetailOfSport extends Activity {
         Bitmap bitmap = BitmapFactory.decodeByteArray(byteArray, 0, byteArray.length);
         imageViewSportDetail1.setImageBitmap(bitmap);
         //图片2,如果有图片2
-        if (sportRecord.getImageBit2().length != 0) {
+        if (sportRecord.getImageBit2() != null) {
             byteArray = sportRecord.getImageBit2();
             bitmap = BitmapFactory.decodeByteArray(byteArray, 0, byteArray.length);
             imageViewSportDetail2.setImageBitmap(bitmap);
