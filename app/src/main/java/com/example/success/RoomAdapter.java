@@ -1,5 +1,6 @@
 package com.example.success;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Color;
 import android.view.LayoutInflater;
@@ -43,11 +44,12 @@ public class RoomAdapter extends RecyclerView.Adapter<RoomAdapter.RoomViewHolder
         return new RoomViewHolder(view);
     }
 
+    @SuppressLint("DefaultLocale")
     @Override
     public void onBindViewHolder(@NonNull RoomViewHolder holder, int position) {
         Room room = roomList.get(position);
         holder.roomName.setText(room.getRoomName());
-        holder.roomMaxNumber.setText(String.format("%d/%d", room.getJoinUsers().size(), room.getMaxUserNumber()));
+        holder.roomMaxNumber.setText(String.format("%d/%d", db.getAllUserInRoom(room.getId()).size(), room.getMaxUserNumber()));
         holder.roomSportType.setText(String.valueOf(room.getSportType()));
         holder.roomStartTime.setText(String.valueOf(room.getStartTime()));
         holder.roomEndTime.setText(String.valueOf(room.getEndTime()));
