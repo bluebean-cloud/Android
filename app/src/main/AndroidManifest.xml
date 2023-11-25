@@ -31,6 +31,9 @@
             android:name=".DetailOfSport"
             android:exported="false" />
         <activity
+            android:name=".CalorieDetection"
+            android:exported="false" />
+        <activity
             android:name=".RoomDetail"
             android:exported="false" />
         <activity
