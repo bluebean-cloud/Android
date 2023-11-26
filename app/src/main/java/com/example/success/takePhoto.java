@@ -249,7 +249,7 @@ public class takePhoto extends AppCompatActivity {
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     openAlbum();
                 } else {
-                    Toast.makeText(this, "You denied the permission", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, "你还没有上传图片", Toast.LENGTH_SHORT).show();
                 }
                 break;
 
@@ -257,7 +257,7 @@ public class takePhoto extends AppCompatActivity {
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     openCamera();
                 } else {
-                    Toast.makeText(this, "You denied the permission", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, "你还没有上传图片", Toast.LENGTH_SHORT).show();
                 }
                 break;
             default:
@@ -346,7 +346,7 @@ public class takePhoto extends AppCompatActivity {
 
     public void ensure_choose_img(View view) {
         if (resultUri == null) {
-            Toast.makeText(this, "You denied the permission", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "你还没有选择图片", Toast.LENGTH_SHORT).show();
             return;
         }
 
