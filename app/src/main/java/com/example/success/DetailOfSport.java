@@ -9,6 +9,10 @@ import android.os.Bundle;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.success.entity.SportRecord;
+
+import java.util.Objects;
+
 public class DetailOfSport extends Activity {
     ImageView imageViewUserHeaderImageInSportDetail;
     ImageView imageViewSportDetail1;
@@ -46,7 +50,11 @@ public class DetailOfSport extends Activity {
         //设置参数
         Intent intent = getIntent();
         //用户头像
-
+        byte[] array = CurrentUser.getUser().getUserPhoto();
+        if (array != null) {
+            Bitmap bitHeader = BitmapFactory.decodeByteArray(array, 0, array.length);
+            imageViewUserHeaderImageInSportDetail.setImageBitmap(bitHeader);
+        }
         //用户名
         textViewUserIdInDetail.setText(intent.getStringExtra("textViewUserIdInDetail"));
         //创建时间
@@ -58,12 +66,19 @@ public class DetailOfSport extends Activity {
         //运动地点
         textViewSportLocationInDetail.setText(intent.getStringExtra("textViewSportLocationInDetail"));
         //图片1
-        byte[] byteArray = intent.getByteArrayExtra("image1");
+        DatabaseInterface db = MainActivity.db;
+        SportRecord sportRecord = db.getRecord(CurrentUser.getUser().getId(),
+                intent.getStringExtra("textViewSportNameInDetail"),
+                intent.getStringExtra("textViewDurationInDetail"),
+                intent.getStringExtra("textViewSportLocationInDetail"),
+                intent.getStringExtra("textViewCreateDateInDetail")
+        ).get(0);
+        byte[] byteArray = sportRecord.getImageBit1();
         Bitmap bitmap = BitmapFactory.decodeByteArray(byteArray, 0, byteArray.length);
         imageViewSportDetail1.setImageBitmap(bitmap);
         //图片2,如果有图片2
-        if (intent.hasExtra("image2")) {
-            byteArray = intent.getByteArrayExtra("image2");
+        if (sportRecord.getImageBit2() != null) {
+            byteArray = sportRecord.getImageBit2();
             bitmap = BitmapFactory.decodeByteArray(byteArray, 0, byteArray.length);
             imageViewSportDetail2.setImageBitmap(bitmap);
         }

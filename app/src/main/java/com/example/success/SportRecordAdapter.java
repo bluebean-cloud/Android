@@ -45,10 +45,8 @@ public class SportRecordAdapter extends RecyclerView.Adapter<SportRecordAdapter.
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(v.getContext(), DetailOfSport.class);
-                //传递用户头像
-                //TODO:设置用户图像
                 //传递用户名
-                intent.putExtra("textViewUserIdInDetail", CurrentUser.getUser().getName());//TODO:设置userId
+                intent.putExtra("textViewUserIdInDetail", CurrentUser.getUser().getName());
                 //传递创建时间
                 intent.putExtra("textViewCreateDateInDetail", holder.createDateTextView.getText().toString());
                 //传递运动项目
@@ -57,12 +55,6 @@ public class SportRecordAdapter extends RecyclerView.Adapter<SportRecordAdapter.
                 intent.putExtra("textViewDurationInDetail", String.valueOf(sportRecord.getDuration()));
                 //传递运动地点
                 intent.putExtra("textViewSportLocationInDetail", String.valueOf(sportRecord.getSportLocation()));
-                //传递图片1
-                intent.putExtra("image1", sportRecord.getImageBit1());
-                //传递图片2
-                if (sportRecord.getImageBit2() != null) {
-                    intent.putExtra("image2", sportRecord.getImageBit2());
-                }
                 //启动活动
                 v.getContext().startActivity(intent);
             }
@@ -89,17 +81,6 @@ public class SportRecordAdapter extends RecyclerView.Adapter<SportRecordAdapter.
             createDateTextView = view.findViewById(R.id.textViewCreateDate);
             ImageViewSportItem = view.findViewById(R.id.ImageViewSportItem);
         }
-    }
-
-    public void addSportRecord(SportRecord sportRecord) {
-        //更新数据库内容，插入到数据库中
-        DatabaseInterface db = MainActivity.db;
-        db.createSportRecord(sportRecord);
-        // 通知适配器新记录已插入到位置 0
-        sportRecords.add(0, sportRecord);
-        notifyItemInserted(0);
-        // 滚动到最新的记录位置
-        recyclerView.scrollToPosition(0); // 或者使用 smoothScrollToPosition(0)方法，但前者更丝滑
     }
 
     // 设置 RecyclerView

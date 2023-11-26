@@ -80,7 +80,7 @@
         android:id="@+id/sureButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="61dp"
+        android:layout_marginEnd="40dp"
         android:layout_marginBottom="82dp"
         android:background="@drawable/bt_shape"
         android:text="确定"
@@ -92,20 +92,21 @@
 
     <CheckBox
         android:id="@+id/check_autologin"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="-15dp"
+        android:layout_width="35dp"
+        android:layout_height="37dp"
+        android:layout_marginStart="276dp"
         app:layout_constraintEnd_toStartOf="@+id/textView3"
-        app:layout_constraintTop_toTopOf="@+id/textView3" />
+        app:layout_constraintStart_toStartOf="parent"
+        tools:layout_editor_absoluteY="466dp" />
 
     <TextView
         android:id="@+id/textView3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
+        android:layout_marginEnd="40dp"
         android:text="自动登录"
-        app:layout_constraintEnd_toEndOf="@+id/input_passwd"
-        app:layout_constraintTop_toBottomOf="@+id/input_passwd" />
+        app:layout_constraintBaseline_toBaselineOf="@+id/check_autologin"
+        app:layout_constraintEnd_toEndOf="parent" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

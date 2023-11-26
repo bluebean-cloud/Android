@@ -162,7 +162,10 @@ public class PersonFragment extends Fragment {
             }
         });
         TextView userName = (TextView) (getActivity().findViewById(R.id.userName_person));
+        userName.setText(currentUser.getName());
         ImageView imageView = (ImageView) (getActivity().findViewById(R.id.userPortrait));
+        if(currentUser.getUserPhoto() != null)
+            imageView.setImageBitmap(DatabaseInterface.byteArrayToBitmap(currentUser.getUserPhoto()));
         imageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -290,6 +293,7 @@ public class PersonFragment extends Fragment {
                     try {
                         InputStream inputStream = getContext().getContentResolver().openInputStream(imgUri);
                         Bitmap bitmap = BitmapFactory.decodeStream(inputStream);
+                        ((ImageView)getActivity().findViewById(R.id.userPortrait)).setImageBitmap(bitmap);
                         db.insertUserPhoto(currentUser.getName(), bitmap);
                         ByteArrayOutputStream stream = new ByteArrayOutputStream();
                         bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
@@ -301,15 +305,5 @@ public class PersonFragment extends Fragment {
                 }
             }
         });
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        TextView userName = (TextView) (getActivity().findViewById(R.id.userName_person));
-        userName.setText(currentUser.getName());
-        ImageView imageView = (ImageView) (getActivity().findViewById(R.id.userPortrait));
-        if(currentUser.getUserPhoto() != null)
-            imageView.setImageBitmap(DatabaseInterface.byteArrayToBitmap(currentUser.getUserPhoto()));
     }
 }

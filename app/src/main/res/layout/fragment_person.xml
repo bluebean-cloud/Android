@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/blue3"
+    android:background="@drawable/yuanshen1"
     tools:context=".ui.person.PersonFragment">
 
 
@@ -28,6 +28,7 @@
         android:layout_marginBottom="411dp"
         android:gravity="center"
         android:text="Klily"
+        android:textColor="#FFFFFF"
         android:textSize="30sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -39,10 +40,10 @@
         android:id="@+id/person_btn_logout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/logout"
         android:layout_marginTop="40dp"
-        app:layout_constraintStart_toStartOf="parent"
+        android:text="@string/logout"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/userName_person" />
 
     <ImageView
