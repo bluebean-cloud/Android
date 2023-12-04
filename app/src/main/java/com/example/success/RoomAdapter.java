@@ -16,6 +16,7 @@ import com.example.success.entity.Room;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
@@ -32,9 +33,12 @@ public class RoomAdapter extends RecyclerView.Adapter<RoomAdapter.RoomViewHolder
         FINISHED     // 已经结束
     }
 
+    private List<Room> originalRoomList;  // Add this line
+
     public RoomAdapter(List<Room> roomList) {
         this.roomList = roomList;
-        sortRooms();  // 对房间按开始时间排序
+        this.originalRoomList = new ArrayList<>(roomList);  // Add this line
+        sortRooms();
     }
 
     @NonNull
@@ -75,6 +79,24 @@ public class RoomAdapter extends RecyclerView.Adapter<RoomAdapter.RoomViewHolder
             }
         });
 
+    }
+
+    public void filterRooms(String query) {
+        roomList.clear();
+
+        if (query.isEmpty()) {
+            roomList.addAll(originalRoomList);
+        } else {
+            query = query.toLowerCase();
+            for (Room room : originalRoomList) {
+                if (room.getRoomName().toLowerCase().contains(query) ||
+                        String.valueOf(room.getSportType()).toLowerCase().contains(query)) {
+                    roomList.add(room);
+                }
+            }
+        }
+
+        notifyDataSetChanged();
     }
 
     @Override

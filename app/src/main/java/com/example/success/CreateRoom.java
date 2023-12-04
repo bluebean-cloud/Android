@@ -144,7 +144,8 @@ public class CreateRoom extends AppCompatActivity {
 
         // 保存房间信息
         User currentUser = CurrentUser.getUser();
-        db.addRoom(currentUser, maxUserNumberText, roomNameText, sportTypeText, roomDetailText, startTimeText, endTimeText);
+        db.addRoom(currentUser, maxUserNumberText, roomNameText, sportTypeText,
+                roomDetailText, startTimeText, endTimeText);
         Toast.makeText(this, "保存成功！", Toast.LENGTH_SHORT).show();
 
         // 结束当前 Activity
