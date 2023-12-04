@@ -28,16 +28,4 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/memoryNum"
-        android:layout_width="167dp"
-        android:layout_height="80dp"
-        android:layout_gravity="center"
-        android:layout_marginEnd="4dp"
-        android:gravity="center"
-        android:text="10"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="@+id/friendName"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/friendName" />
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -75,11 +75,11 @@ public class SportRecordAdapter extends RecyclerView.Adapter<SportRecordAdapter.
 
         public ViewHolder(View view) {
             super(view);
-            sportNameTextView = view.findViewById(R.id.textViewSportName);
-            durationTextView = view.findViewById(R.id.textViewDuration);
-            sportLocationTextView = view.findViewById(R.id.textViewSportLocation);
+            sportNameTextView = view.findViewById(R.id.tip_title);
+            durationTextView = view.findViewById(R.id.tip_user);
+            sportLocationTextView = view.findViewById(R.id.tip_content);
             createDateTextView = view.findViewById(R.id.textViewCreateDate);
-            ImageViewSportItem = view.findViewById(R.id.ImageViewSportItem);
+            ImageViewSportItem = view.findViewById(R.id.tip_list_photo);
         }
     }
 

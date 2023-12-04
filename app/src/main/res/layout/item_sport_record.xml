@@ -4,12 +4,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:layout_margin="8dp">
+    android:layout_margin="8dp"
+    android:alpha="50">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="185dp"
-        android:background="#E2F3F8"
+        android:background="@color/white"
         android:minWidth="?android:attr/scrollbarSize"
         tools:layout_editor_absoluteX="1dp">
 
@@ -50,7 +51,7 @@
             app:layout_constraintTop_toBottomOf="@+id/textViewSportRecordItem2" />
 
         <TextView
-            android:id="@+id/textViewSportName"
+            android:id="@+id/tip_title"
             android:layout_width="160dp"
             android:layout_height="25dp"
             android:layout_weight="1"
@@ -61,7 +62,7 @@
             app:layout_constraintStart_toEndOf="@+id/textViewSportRecordItem1" />
 
         <TextView
-            android:id="@+id/textViewDuration"
+            android:id="@+id/tip_user"
             android:layout_width="160dp"
             android:layout_height="25dp"
             android:textSize="16sp"
@@ -71,7 +72,7 @@
             app:layout_constraintStart_toEndOf="@+id/textViewSportRecordItem2" />
 
         <TextView
-            android:id="@+id/textViewSportLocation"
+            android:id="@+id/tip_content"
             android:layout_width="160dp"
             android:layout_height="25dp"
             android:textSize="16sp"
@@ -108,7 +109,7 @@
             app:layout_constraintVertical_bias="0.901" />
 
         <ImageView
-            android:id="@+id/ImageViewSportItem"
+            android:id="@+id/tip_list_photo"
             android:layout_width="105dp"
             android:layout_height="99dp"
             android:layout_marginEnd="8dp"
@@ -117,7 +118,7 @@
             android:src="@drawable/buaa"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/textViewDuration"
+            app:layout_constraintStart_toEndOf="@+id/tip_user"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.186" />
 

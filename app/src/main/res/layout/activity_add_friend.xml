@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/grey"
+    android:background="@drawable/blue3"
     tools:context=".AddFriend">
 
 
@@ -35,27 +35,14 @@
         app:layout_constraintVertical_bias="0.0" />
 
     <ImageView
-        android:id="@+id/notify"
-        android:layout_width="0dp"
-        android:layout_height="194dp"
-        android:layout_marginStart="6dp"
-        android:layout_marginEnd="6dp"
-        android:src="@drawable/find_partner"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/search_icon"
-        app:layout_constraintVertical_bias="0.392" />
-
-    <ImageView
         android:id="@+id/msg_add_friend"
         android:layout_width="36dp"
         android:layout_height="43dp"
         android:layout_marginTop="46dp"
         android:layout_marginEnd="16dp"
         android:src="@drawable/msg"
+        android:visibility="invisible"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:visibility="invisible"/>
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

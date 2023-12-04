@@ -32,7 +32,6 @@ public class FriendAdapter extends ArrayAdapter<Friend> {
             viewHolder = new FriendViewHolder();
             viewHolder.portrait = (ImageView) view.findViewById(R.id.friendPortrait);
             viewHolder.friendName = (TextView) view.findViewById(R.id.friendName);
-            viewHolder.memoryNum = (TextView) view.findViewById(R.id.memoryNum);
             view.setTag(viewHolder);
         }else {
             view = convertView;
@@ -62,7 +61,6 @@ public class FriendAdapter extends ArrayAdapter<Friend> {
         }
         viewHolder.portrait.setImageBitmap(bitmap);
         viewHolder.friendName.setText(friend.getFriendName());
-        viewHolder.memoryNum.setText(String.valueOf(friend.getMemoryNum()));
         return view;
     }
 }

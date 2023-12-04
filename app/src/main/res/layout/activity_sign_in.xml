@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/blue"
+    android:background="@drawable/log"
     tools:context=".Sign_up">
 
 
@@ -70,8 +70,8 @@
         android:id="@+id/input_sure_passwd"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="48dp"
-        android:layout_marginBottom="180dp"
+        android:layout_marginEnd="44dp"
+        android:layout_marginBottom="196dp"
         android:ems="10"
         android:hint="请确认密码"
         android:inputType="textWebPassword"
@@ -90,18 +90,7 @@
         android:textColor="#ffffff"
         android:textSize="19sp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/welcome" />
-
-    <ImageView
-        android:id="@+id/welcome"
-        android:layout_width="449dp"
-        android:layout_height="397dp"
-        android:layout_marginBottom="164dp"
-        android:src="@drawable/logo"
-        app:layout_constraintBottom_toTopOf="@+id/sureButton_signIn"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent" />
 
     <CheckBox
         android:id="@+id/check_autologin"
@@ -123,6 +112,16 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toEndOf="@+id/check_autologin" />
+
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="485dp"
+        android:layout_height="451dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginBottom="332dp"
+        android:src="@drawable/logo"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
